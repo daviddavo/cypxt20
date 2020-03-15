@@ -3,6 +3,14 @@
 {% block title %}
     Hola?
 {% endblock %}
+{% block header %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3">Poemas por Teléfono</h1>
+            <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/poemasxtelefono">#poemasxtelefono</a></h1>
+        </div>
+    </div>
+{% endblock %}
 {% block body %}
-    <h1 class="text-center">Hello World!</h1>
+    {% include '/pxt/_formGustos.twig' %}
 {% endblock %}

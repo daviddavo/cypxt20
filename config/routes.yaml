@@ -1,6 +1,10 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-poemas_por_telefono:
-  path: /pxt
+home:
+  path: /
   controller: App\Controller\PoemasController::main
+
+admin:
+  path: /lineas
+  controller: App\Controller\LineasController::main

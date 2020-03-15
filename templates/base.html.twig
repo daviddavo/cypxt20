@@ -7,11 +7,12 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% block header %}{% include '_header.twig' %}{% endblock %}
         <main class="container" role="main">
         {% block body %}{% endblock %}
         <script src="{{ asset('build/global.js') }}"></script>
         {% block javascripts %}{% endblock %}
         </main>
-        {% include '_footer.twig' %}
+        {% block footer %}{% include '_footer.twig' %}{% endblock %}
     </body>
 </html>
