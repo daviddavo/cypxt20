@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('build/global.css') }}"
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
+        <script src="{{ asset('build/global.js') }}"></script>
         {% block javascripts %}{% endblock %}
+        {% include '_footer.twig' %}
     </body>
 </html>
