@@ -1,5 +1,5 @@
 import '../css/global.scss';
 
-require('bootstrap')
+require('bootstrap');
 
 import $ from 'jquery';

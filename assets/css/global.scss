@@ -5,3 +5,12 @@
 $primary: darken(#428bca, 20%);
 
 @import "~bootstrap/scss/bootstrap";
+
+.footer {
+  @extend .text-white;
+
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #bd2130;
+}
