@@ -5,17 +5,23 @@ namespace App\Controller;
 use App\Entity\OnlineCall;
 use App\Form\OnlineCallType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CallMeController extends AbstractController
 {
-    public function main() {
+    public function main(Request $request) {
         $call = new OnlineCall();
-        $call->setName("Juanito");
-        $call->setAge(23);
-        $call->setNumber("916 79 01 80");
 
         $form = $this->createForm(OnlineCallType::class, $call);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($form->getData());
+            $entityManager->flush();
+
+            return $this->redirectToRoute('callme_success');
+        }
 
         return $this->render('pxt/index.html.twig', [
             'title' => 'Poemas por Teléfono',

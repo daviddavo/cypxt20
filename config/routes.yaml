@@ -5,6 +5,10 @@ home:
   path: /
   controller: App\Controller\CallMeController::main
 
+callme_success:
+  path: /success
+  controller: App\Controller\CallMeController::main
+
 admin:
   path: /lineas
   controller: App\Controller\LineasController::main

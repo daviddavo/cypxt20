@@ -29,10 +29,12 @@ build:
     - echo $COMPOSER_MEMORY_LIMIT
     - composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest
     - yarn install --no-dev
+    - yarn encore prod
 
 upload:
   stage: upload
   before_script:
     - apk add lftp
   script:
+    - rm -rf .git/*
     - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; ls; mirror -c --verbose -Re -P 10 ./ $FTP_PATH --exclude-glob-from .ftpignore"
