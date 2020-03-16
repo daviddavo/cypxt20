@@ -17,16 +17,15 @@ stages:
 
 build:
   stage: build
-  only:
-    changes:
-      - yarn.lock
   artifacts:
     paths:
       - node_modules/
+      - public/
   before_script:
     - apk add yarn
   script:
     - yarn install --no-dev
+    - yarn encore prod
 
 build composer:
   stage: build
@@ -42,16 +41,6 @@ build composer:
     - php -v
     - composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest
 
-build encore:
-  stage: build
-  artifacts:
-    paths:
-      - public/
-  before_script:
-    - apk add yarn
-  script:
-    - yarn encore prod
-
 upload yarn:
   stage: upload
   only:
@@ -60,7 +49,7 @@ upload yarn:
   before_script:
     - apk add lftp
   script:
-    - lftp -c "set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./node_modules $FTP/PATH/node_modules"
+    - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./node_modules $FTP_PATH/node_modules"
 
 upload composer:
   stage: upload
@@ -70,7 +59,7 @@ upload composer:
   before_script:
     - apk add lftp
   script:
-    - lftp -c "set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./vendor $FTP_PATH/vendor"
+    - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./vendor $FTP_PATH/vendor"
 
 upload:
   stage: upload
@@ -78,4 +67,4 @@ upload:
     - apk add lftp
   script:
     - rm -rf .git/*
-    - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; ls; mirror -n --verbose -Re -P 10 ./ $FTP_PATH --exclude-glob-from .ftpignore --exclude vendor/"
+    - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; ls; mirror -n --verbose -Re -P 10 ./ $FTP_PATH --exclude-glob-from .ftpignore --exclude vendor/ --exclude node_modules/"
