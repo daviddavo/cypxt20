@@ -18,8 +18,9 @@ stages:
 build:
   stage: build
   artifacts:
-    - vendor/
-    - node_modules/
+    paths:
+      - vendor/
+      - node_modules/
   before_script:
     - apk add composer yarn
   script:
