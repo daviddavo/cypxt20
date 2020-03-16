@@ -37,4 +37,4 @@ upload:
     - apk add lftp
   script:
     - rm -rf .git/*
-    - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; ls; mirror -c --verbose -Re -P 10 ./ $FTP_PATH --exclude-glob-from .ftpignore"
+    - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; ls; mirror -n --verbose -Re -P 10 ./ $FTP_PATH --exclude-glob-from .ftpignore"
