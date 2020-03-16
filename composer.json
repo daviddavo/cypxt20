@@ -40,7 +40,10 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.3"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -81,5 +84,8 @@
             "allow-contrib": false,
             "require": "5.0.*"
         }
+    },
+    "platform": {
+        "php": "7.3"
     }
 }

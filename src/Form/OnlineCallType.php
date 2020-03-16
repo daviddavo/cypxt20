@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -47,12 +48,12 @@ class OnlineCallType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'choices' => [
-                    '14-15' => 14,
-                    '15-16' => 15,
-                    '16-17' => 16,
-                    '17-18' => 17,
-                    '18-19' => 18,
-                    '19-20' => 19]
+                    '14:00 - 15:00' => 14,
+                    '15:00 - 16:00' => 15,
+                    '16:00 - 17:00' => 16,
+                    '17:00 - 18:00' => 17,
+                    '18:00 - 19:00' => 18,
+                    '19:00 - 20:00' => 19]
             ])
             ->add('number', TelType::class, [
                 'label' => 'Número fijo o móvil (preferiblemente fijo)',
@@ -60,7 +61,9 @@ class OnlineCallType extends AbstractType
             ])
             ->add('comment', TextAreaType::class, [
                 'label' => 'Comentarios',
-                'help' => '¿Algo más? ¿Hay más gente contigo? ¿Quieres que recitemos varios poemas para varios para varias personas de tu familia?'
+                'help' => '¿Algo más? ¿Hay más gente contigo? ¿Quieres que recitemos varios poemas para varias personas de tu familia?'
+            ])->add('submit', SubmitType::class, [
+                'label' => 'Enviar'
             ])
         ;
     }

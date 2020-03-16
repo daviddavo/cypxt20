@@ -3,7 +3,7 @@
 #    controller: App\Controller\DefaultController::index
 home:
   path: /
-  controller: App\Controller\PoemasController::main
+  controller: App\Controller\CallMeController::main
 
 admin:
   path: /lineas
