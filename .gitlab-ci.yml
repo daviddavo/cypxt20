@@ -17,19 +17,60 @@ stages:
 
 build:
   stage: build
+  only:
+    changes:
+      - yarn.lock
+  artifacts:
+    paths:
+      - node_modules/
+  before_script:
+    - apk add yarn
+  script:
+    - yarn install --no-dev
+
+build composer:
+  stage: build
+  only:
+    changes:
+      - composer.lock
   artifacts:
     paths:
       - vendor/
-      - node_modules/
   before_script:
-    - apk add composer yarn
+    - apk add composer
   script:
     - php -v
-    - php -r "echo ini_get('memory_limit').PHP_EOL;"
-    - echo $COMPOSER_MEMORY_LIMIT
     - composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest
-    - yarn install --no-dev
+
+build encore:
+  stage: build
+  artifacts:
+    paths:
+      - public/
+  before_script:
+    - apk add yarn
+  script:
     - yarn encore prod
+
+upload yarn:
+  stage: upload
+  only:
+    changes:
+      - yarn.lock
+  before_script:
+    - apk add lftp
+  script:
+    - lftp -c "set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./node_modules $FTP/PATH/node_modules"
+
+upload composer:
+  stage: upload
+  only:
+    changes:
+      - composer.lock
+  before_script:
+    - apk add lftp
+  script:
+    - lftp -c "set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./vendor $FTP_PATH/vendor"
 
 upload:
   stage: upload
@@ -37,4 +78,4 @@ upload:
     - apk add lftp
   script:
     - rm -rf .git/*
-    - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; ls; mirror -n --verbose -Re -P 10 ./ $FTP_PATH --exclude-glob-from .ftpignore"
+    - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; ls; mirror -n --verbose -Re -P 10 ./ $FTP_PATH --exclude-glob-from .ftpignore --exclude vendor/"
