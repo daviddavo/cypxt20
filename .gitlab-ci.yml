@@ -35,4 +35,4 @@ upload:
   before_script:
     - apk add lftp
   script:
-    - lftp -c "set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror --dry-run -Rev ./ $FTP_PATH --exclude-glob-from .ftpignore"
+    - lftp -c "set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror --dry-run -Re ./ $FTP_PATH --exclude-glob-from .ftpignore"
