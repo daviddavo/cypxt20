@@ -11,13 +11,15 @@ class PoemasController extends AbstractController
 {
     public function main() {
         $call = new OnlineCall();
-        $call->setName("Juanito Valderrama");
+        $call->setName("Juanito");
+        $call->setAge(23);
+        $call->setNumber("916 79 01 80");
 
         $form = $this->createForm(OnlineCallType::class, $call);
 
         return $this->render('pxt/index.html.twig', [
-            'msg' => 'Hello World!',
-            'year'=>2020,
+            'title' => 'Poemas por Teléfono',
+            'hashtag'=>'poemasxtelefono',
             'form' => $form->createView()]);
     }
 
