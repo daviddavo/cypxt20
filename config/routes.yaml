@@ -5,6 +5,10 @@ home:
   path: /
   controller: App\Controller\CallMeController::main
 
+stats:
+  path: /estadisticas
+  controller: App\Controller\StatsController::index
+
 callme_success:
   path: /success
   controller: App\Controller\CallMeController::main

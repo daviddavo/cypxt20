@@ -76,4 +76,4 @@ upload:
     - ssh ec2-user@pxt.montandoellocal.com whoami
     - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest'
     - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && yarn install --no-dev && yarn encore prod'
-    - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && php bin/console cache:clear'
+    - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && php bin/console cache:clear && php bin/console cache:warmup'
