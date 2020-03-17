@@ -13,58 +13,67 @@ variables:
 stages:
   - build
   - test
-  - upload
+  - deploy
 
-build:
-  stage: build
-  artifacts:
-    paths:
-      - node_modules/
-      - public/
-  before_script:
-    - apk add yarn
-  script:
-    - yarn install --no-dev
-    - yarn encore prod
+# build:
+#   stage: build
+#  artifacts:
+#     paths:
+#     - node_modules/
+#     - public/
+#   before_script:
+#     - apk add yarn
+#   script:
+#     - yarn install --no-dev
+#     - yarn encore prod
 
-build composer:
-  stage: build
-  only:
-    changes:
-      - composer.lock
-  artifacts:
-    paths:
-      - vendor/
-  before_script:
-    - apk add composer
-  script:
-    - php -v
-    - composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest
+# build composer:
+#   stage: build
+#   only:
+#     changes:
+#       - composer.lock
+#   artifacts:
+#     paths:
+#       - vendor/
+#   before_script:
+#     - apk add composer
+#   script:
+#     - php -v
+#     - composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest
 
-upload yarn:
-  stage: upload
-  only:
-    changes:
-      - yarn.lock
-  before_script:
-    - apk add lftp
-  script:
-    - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./node_modules $FTP_PATH/node_modules"
+# upload yarn:
+#   stage: deploy
+#   only:
+#     changes:
+#       - yarn.lock
+#   before_script:
+#     - apk add lftp
+#   script:
+#     - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./node_modules $FTP_PATH/node_modules"
 
-upload composer:
-  stage: upload
-  only:
-    changes:
-      - composer.lock
-  before_script:
-    - apk add lftp
-  script:
-    - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./vendor $FTP_PATH/vendor"
+# upload composer:
+#   stage: deploy
+#   only:
+#     changes:
+#       - composer.lock
+#   before_script:
+#     - apk add lftp
+#   script:
+#     - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./vendor $FTP_PATH/vendor"
 
 upload:
-  stage: upload
+  stage: deploy
   before_script:
-    - apk add lftp
+    - apk add openssh-client rsync
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan pxt.montandoellocal.com >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
   script:
-    - rm -rf .git/*
-    - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; ls; mirror -n --verbose -Re -P 10 ./ $FTP_PATH --exclude-glob-from .ftpignore --exclude vendor/ --exclude node_modules/"
+    - rsync -rltvz --delete --exclude-from=.ftpignore --exclude=vendor/ --exclude=node_modules/ ./ ec2-user@pxt.montandoellocal.com:/var/www/pxt/
+    - ssh ec2-user@pxt.montandoellocal.com whoami
+    - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest'
+    - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && yarn install --no-dev && yarn encore prod'
+    - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && php bin/console cache:clear'
