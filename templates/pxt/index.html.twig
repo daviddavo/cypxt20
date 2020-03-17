@@ -12,5 +12,10 @@
     </div>
 {% endblock %}
 {% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="row alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
     {% include '/pxt/_formGustos.twig' %}
 {% endblock %}
