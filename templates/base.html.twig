@@ -2,17 +2,21 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="author" content="David Davó Laviña">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset('build/global.css') }}"
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block header %}{% include '_header.twig' %}{% endblock %}
-        <main class="container" role="main">
-        {% block body %}{% endblock %}
-        <script src="{{ asset('build/global.js') }}"></script>
-        {% block javascripts %}{% endblock %}
+        <main role="main">
+            {% block header %}{% include '_header.twig' %}{% endblock %}
+            <div class="container">
+                {% block body %}{% endblock %}
+            </div>
         </main>
         {% block footer %}{% include '_footer.twig' %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+        <script src="{{ asset('build/global.js') }}"></script>
     </body>
 </html>
