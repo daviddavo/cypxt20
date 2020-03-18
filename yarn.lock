@@ -1883,6 +1883,11 @@ core-js-compat@^3.6.2:
     browserslist "^4.8.3"
     semver "7.0.0"
 
+core-js@^3.6.4:
+  version "3.6.4"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.4.tgz#440a83536b458114b9cb2ac1580ba377dc470647"
+  integrity sha512-4paDGScNgZP2IXXilaffL9X7968RuvwlkK3xWtZRVqgd8SYNiVKRJvkFd1aqqEuPfN7E68ZHEp9hDj6lHj4Hyw==
+
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
@@ -4891,6 +4896,11 @@ pkg-up@^1.0.0:
   integrity sha1-Pgj7RhUlxEIWJKM7n35tCvWwWiY=
   dependencies:
     find-up "^1.0.0"
+
+plotly.js-dist@^1.52.3:
+  version "1.52.3"
+  resolved "https://registry.yarnpkg.com/plotly.js-dist/-/plotly.js-dist-1.52.3.tgz#4c16c6da6adab6cdba169087b5005bdddbf10834"
+  integrity sha512-kpuNwveRk6M/5cCW1ZgJTbMLD0bRZhJlLK0cUHVkTsP/PWKCVJqO3QiiqrypFGE/xEhWfHCY+YKAKjMmEbo4Gw==
 
 popper.js@^1.16.1:
   version "1.16.1"

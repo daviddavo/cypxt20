@@ -15,17 +15,17 @@ stages:
   - test
   - deploy
 
-# build:
-#   stage: build
-#  artifacts:
-#     paths:
-#     - node_modules/
-#     - public/
-#   before_script:
-#     - apk add yarn
-#   script:
-#     - yarn install --no-dev
-#     - yarn encore prod
+build:
+  stage: build
+  artifacts:
+    paths:
+      - node_modules/
+      - public/build/
+  before_script:
+     - apk add yarn
+  script:
+     - yarn install --no-dev
+     - yarn encore prod
 
 # build composer:
 #   stage: build
@@ -41,15 +41,7 @@ stages:
 #     - php -v
 #     - composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest
 
-# upload yarn:
-#   stage: deploy
-#   only:
-#     changes:
-#       - yarn.lock
-#   before_script:
-#     - apk add lftp
-#   script:
-#     - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./node_modules $FTP_PATH/node_modules"
+# - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./node_modules $FTP_PATH/node_modules"
 
 # upload composer:
 #   stage: deploy
@@ -75,5 +67,6 @@ upload:
     - rsync -rltvz --delete --exclude-from=.ftpignore --exclude=vendor/ --exclude=node_modules/ ./ ec2-user@pxt.montandoellocal.com:/var/www/pxt/
     - ssh ec2-user@pxt.montandoellocal.com whoami
     - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest'
-    - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && yarn install --no-dev && yarn encore prod'
+# - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && yarn install --no-dev && yarn encore prod'
+    - '[ -d "node_modules/" ] && rsync -rltvz --delete ./node_modules ec2-user@pxt.montandoellocal.com:/var/www/pxt/node_modules'
     - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && php bin/console cache:clear && php bin/console cache:warmup'

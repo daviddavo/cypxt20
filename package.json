@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "boostrap": "^2.0.0",
+    "core-js": "^3.6.4",
     "jquery": "^3.4.1",
+    "plotly.js-dist": "^1.52.3",
     "sass-loader": "7.0.1"
   }
 }

@@ -16,3 +16,7 @@ callme_success:
 admin:
   path: /lineas
   controller: App\Controller\LineasController::main
+
+api_stats:
+  path: /api/stats
+  controller: App\Controller\StatsController::api

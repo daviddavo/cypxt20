@@ -19,6 +19,15 @@ class OnlineCallRepository extends ServiceEntityRepository
         parent::__construct($registry, OnlineCall::class);
     }
 
+    public function getAgeCounts() {
+        $qb =  $this->createQueryBuilder('c')
+            ->select('c.age')
+            ->addSelect("COUNT(c) as cnt")
+            ->groupBy('c.age');
+
+        return $qb->getQuery()->execute();
+    }
+
     // /**
     //  * @return OnlineCall[] Returns an array of OnlineCall objects
     //  */

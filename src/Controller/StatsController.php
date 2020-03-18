@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\OnlineCall;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class StatsController extends AbstractController
@@ -12,10 +14,19 @@ class StatsController extends AbstractController
      */
     public function index()
     {
+        $repo = $this->getDoctrine()->getRepository(OnlineCall::class);
+
         return $this->render('stats/index.html.twig', [
-            'controller_name' => 'StatsController',
-            'title' => 'Estadísticas Poemas por Teléfono',
-            'hashtag' => 'poemasxtelefono'
+            'title' => 'Estadísticas',
+            'hashtag' => 'poemasxtelefono',
+            'ageCounts' => $repo->getAgeCounts()
+        ]);
+    }
+
+    public function api()
+    {
+        return new JSONResponse([
+            "ages" => $this->getDoctrine()->getRepository(OnlineCall::class)->getAgeCounts()
         ]);
     }
 }

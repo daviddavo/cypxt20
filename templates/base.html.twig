@@ -5,8 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="author" content="David Davó Laviña">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="{{ asset('build/global.css') }}"
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('global') }}
+        {% endblock %}
     </head>
     <body>
         <main role="main">
@@ -16,7 +17,8 @@
             </div>
         </main>
         {% block footer %}{% include '_footer.twig' %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-        <script src="{{ asset('build/global.js') }}"></script>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('global') }}
+        {% endblock %}
     </body>
 </html>
