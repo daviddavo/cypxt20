@@ -17,7 +17,9 @@ const barlayout = {
 
 function plotAges(ages) {
     let xarr = []; let yarr = [];
+    let sum = 0;
     ages.forEach(function(r) {
+        sum += +r["cnt"];
         xarr.push(r["age"]);
         yarr.push(r["cnt"]);
     });
@@ -34,6 +36,7 @@ function plotAges(ages) {
     layout.title = 'Edad de los participantes';
 
     Plotly.newPlot('ageplot', data, layout);
+    $('#totalcnt').text(sum);
 }
 
 function plotHours(hours) {
