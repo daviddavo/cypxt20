@@ -1,5 +1,6 @@
 <!-- Based on https://www.w3schools.com/howto/howto_js_form_steps.asp -->
 <!--<form id="cuentameForm">-->
+{% if date() < date('2020-03-20T15:00', 'Europe/Madrid') %}
 {{ form(form) }}
 <small class="text-justify text-muted pb-3">
     La Mancomunidad de Servicios Sociales Mejorada-Velilla, con C.I.F P2800095H, con domicilio en Plaza de España Nº1,
@@ -14,31 +15,8 @@
     de la actividad, tras la cual serán eliminados por completo de nuestra base de datos. Tampoco se cederán a terceros
     salvo en los casos en los que exista una obligación legal.
 </small>
-{#
-    <h1>¿Quieres escuchar un poema?</h1>
-    <div class="form-tab">
-        Name:
-        <p><input placeholder="Nombre" oninput="this.className=''"></p>
-    </div>
-
-    <div class="form-tab">
-        Page 2:
-        O más idk
-        <p><input placeholder="Idk" oninput="this.className=''"></p>
-    </div>
-
-    <div style="overflow:auto;">
-        <div style="float:right;">
-            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
-            <button type="button" id="nextBtn" onclick="nextPrev(+1)">Siguiente</button>
-        </div>
-    </div>
-
-    <div style="text-align:center; margin-top: 40px;">
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-    </div>
-#}
-<!--</form>-->
+{% else %}
+    <p>Lo sentimos, pero cerramos las solicitudes a las 15:00 del Viernes, 20 de Marzo de 2020.
+    Te recoradamos que en Abril celebraremos <a href="https://twitter.com/hashtag/cuentosxtelefono" target="_blank">#cuentosxtelefono</a>,
+    contando cuentos para todas las edades.</p>
+{% endif %}
