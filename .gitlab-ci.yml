@@ -27,19 +27,19 @@ build:
      - yarn install --no-dev
      - yarn encore prod
 
-# build composer:
-#   stage: build
-#   only:
-#     changes:
-#       - composer.lock
-#   artifacts:
-#     paths:
-#       - vendor/
-#   before_script:
-#     - apk add composer
-#   script:
-#     - php -v
-#     - composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest
+build composer:
+  stage: build
+  only:
+    changes:
+      - composer.lock
+  artifacts:
+    paths:
+      - vendor/
+  before_script:
+    - apk add composer
+  script:
+    - php -v
+    - composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest
 
 # - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./node_modules $FTP_PATH/node_modules"
 
@@ -66,7 +66,6 @@ upload:
   script:
     - rsync -rltvz --delete --exclude-from=.ftpignore --exclude=vendor/ --exclude=node_modules/ ./ ec2-user@pxt.montandoellocal.com:/var/www/pxt/
     - ssh ec2-user@pxt.montandoellocal.com whoami
-    - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest'
-# - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && yarn install --no-dev && yarn encore prod'
     - '[ -d "node_modules/" ] && rsync -rltvz --delete ./node_modules ec2-user@pxt.montandoellocal.com:/var/www/pxt/node_modules'
+    - '[ -d "vendor/" ] && rsync -rltvz --delete ./vendor ec2-user@pxt.montandoellocal.com:/var/www/pxt/vendor'
     - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && php bin/console cache:clear && php bin/console cache:warmup'
