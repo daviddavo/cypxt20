@@ -35,7 +35,7 @@ class CallMeController extends AbstractController
 
         return $this->render('pxt/index.html.twig', [
             'title' => ($subdomain=='cxt')?'Cuentos por Teléfono':'Poemas por Teléfono',
-            'hashtag' => ($subdomain=='cxt')?'poemasxtelefono':'cuentosxtelefono',
+            'hashtag' => ($subdomain=='cxt')?'cuentosxtelefono':'poemasxtelefono',
             'open' => true,
             'form' => $form->createView()]);
     }
