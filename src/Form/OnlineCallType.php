@@ -25,7 +25,7 @@ class OnlineCallType extends AbstractType
                 ])
             ->add('age', IntegerType::class, [
                 'label' => "Edad",
-                'help' => 'La edad aproximada de para quien va dirigido el poema',
+                'help' => 'La edad aproximada de para quien va dirigido el '.$options["singular"],
                 'required' => true,
                 'attr' => [
                     'min' => 0,
@@ -62,7 +62,7 @@ class OnlineCallType extends AbstractType
             ])
             ->add('comment', TextAreaType::class, [
                 'label' => 'Comentarios',
-                'help' => '¿Algo más? ¿Hay más gente contigo? ¿Quieres que recitemos varios poemas para varias personas de tu familia?',
+                'help' => '¿Algo más? ¿Hay más gente contigo? ¿Quieres que recitemos varios '.$options["plural"].' para varias personas de tu familia?',
                 'required' => false,
             ])->add('submit', SubmitType::class, [
                 'label' => 'Enviar'
@@ -74,6 +74,8 @@ class OnlineCallType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => OnlineCall::class,
+            'singular' => 'poema',
+            'plural' => 'poemas'
         ]);
     }
 }

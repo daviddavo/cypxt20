@@ -10,10 +10,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CallMeController extends AbstractController
 {
-    public function main(Request $request) {
+    public function main(Request $request, $subdomain) {
         $call = new OnlineCall();
 
-        $form = $this->createForm(OnlineCallType::class, $call);
+        $form = $this->createForm(OnlineCallType::class, $call, [
+            'singular' => ($subdomain=='cxt')?'cuento':'poema',
+            'plural' => ($subdomain=='cxt')?'cuentos':'poemas'
+        ]);
         $form->handleRequest($request);
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -31,8 +34,9 @@ class CallMeController extends AbstractController
         }
 
         return $this->render('pxt/index.html.twig', [
-            'title' => 'Poemas por Teléfono',
-            'hashtag'=>'poemasxtelefono',
+            'title' => ($subdomain=='cxt')?'Cuentos por Teléfono':'Poemas por Teléfono',
+            'hashtag' => ($subdomain=='cxt')?'poemasxtelefono':'cuentosxtelefono',
+            'open' => true,
             'form' => $form->createView()]);
     }
 
