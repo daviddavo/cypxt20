@@ -4,12 +4,7 @@
 
 home:
   path: /
-  host: "{subdomain}.montandoellocal.com"
   controller: App\Controller\CallMeController::main
-  requirements:
-    subdomain: cxt|pxt
-  defaults:
-    subdomain: cxt
 
 stats:
   path: /estadisticas

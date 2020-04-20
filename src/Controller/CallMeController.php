@@ -10,8 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CallMeController extends AbstractController
 {
-    public function main(Request $request, $subdomain) {
+    public function main(Request $request) {
         $call = new OnlineCall();
+        $subdomain = explode('.', $request->getHost())[0];
 
         $form = $this->createForm(OnlineCallType::class, $call, [
             'singular' => ($subdomain=='cxt')?'cuento':'poema',
