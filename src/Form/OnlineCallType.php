@@ -48,12 +48,15 @@ class OnlineCallType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'choices' => [
-                    '14:00 - 15:00' => 14,
+                    /*'14:00 - 15:00' => 14,
                     '15:00 - 16:00' => 15,
                     '16:00 - 17:00' => 16,
-                    '17:00 - 18:00' => 17,
+                    '17:00 - 18:00' => 17,*/
                     '18:00 - 19:00' => 18,
-                    '19:00 - 20:00' => 19]
+                    '19:00 - 20:00' => 19,
+                    '20:00 - 21:00' => 20,
+                    '21:00 - 22:00' => 21
+                ]
             ])
             ->add('number', TelType::class, [
                 'label' => 'Número fijo o móvil (preferiblemente fijo)',
