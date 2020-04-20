@@ -4,7 +4,7 @@
 
 home:
   path: /
-  host: "{subdomain}.montandoellocal.com"
+  host: "{subdomain}.{wildcard}"
   controller: App\Controller\CallMeController::main
   requirements:
     subdomain: cxt|pxt
