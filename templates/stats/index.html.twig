@@ -9,7 +9,7 @@
 {% block header %}
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-3"><b>{{ title }}</b></h1>
+        <h1 class="display-4"><b>{{ title }}</b></h1>
         <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ hashtag }}" target="_blank">#{{hashtag }}</a></h1>
         <h5>Estadísticas a día {{ "now"|format_datetime("full") }}</h5>
     </div>
@@ -17,8 +17,9 @@
 {% endblock %}
 
 {% block body %}
-    <h2>Total inscritos: <span id="totalcnt"></span></h2>
+    {#<h2>Total inscritos: <span id="totalcnt"></span></h2>#}
     <div class="row">
+        <div id="cntplot" class="col-lg-6"></div>
         <div id="ageplot" class="col-lg-6"></div>
         <div id="hourplot" class="col-lg-6"></div>
     </div>
