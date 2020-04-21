@@ -34,10 +34,13 @@ class CallMeController extends AbstractController
             return $this->redirect($request->getUri());
         }
 
+        $repo = $this->getDoctrine()->getRepository(OnlineCall::class);
+        $cnt = $repo->getTotalCnt();
+
         return $this->render('pxt/index.html.twig', [
             'title' => ($subdomain=='cxt')?'Cuentos por Teléfono':'Poemas por Teléfono',
             'hashtag' => ($subdomain=='cxt')?'cuentosxtelefono':'poemasxtelefono',
-            'open' => true,
+            'open' => $cnt <= 200,
             'form' => $form->createView()]);
     }
 
