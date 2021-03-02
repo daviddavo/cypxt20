@@ -18,9 +18,14 @@ class OnlineCallType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('fromName', TextType::class, [
+                'label' => '¿De parte de quién es el ' .$options["singular"]. '?',
+                'help' => 'Tu nombre (o pseudónimo)',
+                'required' => true
+            ])
             ->add('name', TextType::class, [
-                'label' => 'Nombre o pseudónimo',
-                'help' => 'Tu nombre o uno inventado para poderte dar un trato personal',
+                'label' => '¿Para quién es el '.$options["singular"].'?',
+                'help' => 'Nombre, pseudónimo o apodo de la persona a la que se lo dedicas (puedes poner «¡Yo mismo!» o «Mi menda» si es para ti)',
                 'required' => true,
                 ])
             ->add('age', IntegerType::class, [

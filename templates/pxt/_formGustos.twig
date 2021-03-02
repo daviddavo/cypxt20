@@ -2,6 +2,13 @@
 <!--<form id="cuentameForm">-->
 {% if open %}
 {{ form(form) }}
+{% else %}
+    <h1>Solicitudes cerradas</h1>
+    <p>Lo sentimos, pero el formulario está cerrado. Hemos llegado al máximo de solicitudes que podemos abarcar, ¡muchas
+        gracias a tod@s!
+        <br>
+        Esperamos que nos llames el año que viene en Poemas o Cuentos por Teléfono. ¡Nos vemos!</p>
+{% endif %}
 <small class="text-justify text-muted pb-3">
     La Mancomunidad de Servicios Sociales Mejorada-Velilla, con C.I.F P2800095H, con domicilio en Plaza de España Nº1,
     CP: 28840, Mejorada del Campo, Madrid, teléfono 916793327 y correo electrónico
@@ -15,10 +22,3 @@
     de la actividad, tras la cual serán eliminados por completo de nuestra base de datos. Tampoco se cederán a terceros
     salvo en los casos en los que exista una obligación legal.
 </small>
-{% else %}
-    <h1>Solicitudes cerradas</h1>
-    <p>Lo sentimos, pero el formulario está cerrado. Hemos llegado al máximo de solicitudes que podemos abarcar, ¡muchas
-        gracias a tod@s!
-        <br>
-        Esperamos que nos llames el año que viene en Poemas o Cuentos por Teléfono. ¡Nos vemos!</p>
-{% endif %}

@@ -46,6 +46,11 @@ class OnlineCall
      */
     private $hours = [];
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fromName;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +124,18 @@ class OnlineCall
     public function setHours(?array $hours): self
     {
         $this->hours = $hours;
+
+        return $this;
+    }
+
+    public function getFromName(): ?string
+    {
+        return $this->fromName;
+    }
+
+    public function setFromName(string $fromName): self
+    {
+        $this->fromName = $fromName;
 
         return $this;
     }

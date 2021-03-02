@@ -11,7 +11,12 @@ $primary: darken(#428bca, 20%);
 
   bottom: 0;
   width: 100%;
-  background-color: #bd2130;
+  background-color: #bd0000;
+
+  a {
+    color: #FFE300;
+    font-weight: bold;
+  }
 }
 
 .jumbotron {
