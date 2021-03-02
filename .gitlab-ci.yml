@@ -68,4 +68,4 @@ upload:
     - ssh ec2-user@cypxt.montandoellocal.com whoami
     - '[ -d "node_modules/" ] && rsync -rltvz --delete ./node_modules ec2-user@cypxt.montandoellocal.com:/var/www/cypxt/node_modules'
     - '[ -d "vendor/" ] && rsync -rltvz --delete ./vendor ec2-user@cypxt.montandoellocal.com:/var/www/cypxt/vendor'
-    - ssh ec2-user@cypxt.montandoellocal.com 'cd /var/www/cypxt && php bin/console doctrine:migrations:migrate -n && php bin/console cache:clear && php bin/console cache:warmup'
+    - ssh ec2-user@cypxt.montandoellocal.com 'cd /var/www/cypxt && php bin/console doctrine:migrations:diff && php bin/console doctrine:migrations:migrate -n && php bin/console cache:clear && php bin/console cache:warmup'
