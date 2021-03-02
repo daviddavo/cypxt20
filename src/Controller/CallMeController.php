@@ -29,7 +29,7 @@ class CallMeController extends AbstractController
             $xdarr = [
                 "Oído cocina", "Recibido", "Marchando"
             ];
-            $this->addFlash('success', "¡{$xdarr[array_rand($xdarr)]}! {$data->getName()}, ¿quieres que le " . (($subdomain=='cxt')?'contemos un cuento':'recitemos un poema') . " a alguien más?");
+            $this->addFlash('success', "¡{$xdarr[array_rand($xdarr)]}! {$data->getFromName()}, ¿quieres que le " . (($subdomain=='cxt')?'contemos un cuento':'recitemos un poema') . " a alguien más?");
 
             return $this->redirect($request->getUri());
         }
