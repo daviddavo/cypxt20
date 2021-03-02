@@ -61,11 +61,11 @@ upload:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - ssh-keyscan pxt.montandoellocal.com >> ~/.ssh/known_hosts
+    - ssh-keyscan cypxt.montandoellocal.com >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - rsync -rltvz --delete --exclude-from=.ftpignore --exclude=vendor/ --exclude=node_modules/ ./ ec2-user@pxt.montandoellocal.com:/var/www/pxt/
-    - ssh ec2-user@pxt.montandoellocal.com whoami
-    - '[ -d "node_modules/" ] && rsync -rltvz --delete ./node_modules ec2-user@pxt.montandoellocal.com:/var/www/pxt/node_modules'
-    - '[ -d "vendor/" ] && rsync -rltvz --delete ./vendor ec2-user@pxt.montandoellocal.com:/var/www/pxt/vendor'
-    - ssh ec2-user@pxt.montandoellocal.com 'cd /var/www/pxt && php bin/console cache:clear && php bin/console cache:warmup'
+    - rsync -rltvzO --delete --exclude-from=.ftpignore --exclude=vendor/ --exclude=node_modules/ ./ ec2-user@cypxt.montandoellocal.com:/var/www/cypxt/
+    - ssh ec2-user@cypxt.montandoellocal.com whoami
+    - '[ -d "node_modules/" ] && rsync -rltvz --delete ./node_modules ec2-user@cypxt.montandoellocal.com:/var/www/cypxt/node_modules'
+    - '[ -d "vendor/" ] && rsync -rltvz --delete ./vendor ec2-user@cypxt.montandoellocal.com:/var/www/cypxt/vendor'
+    - ssh ec2-user@cypxt.montandoellocal.com 'cd /var/www/cypxt && php bin/console cache:clear && php bin/console cache:warmup'

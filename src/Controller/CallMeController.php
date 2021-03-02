@@ -27,7 +27,7 @@ class CallMeController extends AbstractController
             $entityManager->flush();
 
             $xdarr = [
-                "Oído cocina", "Recibido"
+                "Oído cocina", "Recibido", "Marchando"
             ];
             $this->addFlash('success', "¡{$xdarr[array_rand($xdarr)]}! {$data->getName()}, ¿quieres que le " . (($subdomain=='cxt')?'contemos un cuento':'recitemos un poema') . " a alguien más?");
 
@@ -41,6 +41,7 @@ class CallMeController extends AbstractController
             'title' => ($subdomain=='cxt')?'Cuentos por Teléfono':'Poemas por Teléfono',
             'hashtag' => ($subdomain=='cxt')?'cuentosxtelefono':'poemasxtelefono',
             'open' => $cnt <= 200,
+            'fecha' => "Lunes, 22 de Marzo de 2021",
             'form' => $form->createView()]);
     }
 

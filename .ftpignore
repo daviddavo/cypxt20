@@ -1,4 +1,4 @@
 .gitignore
 .git/
-.env.local
+.env*
 var/
