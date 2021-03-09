@@ -26,7 +26,7 @@ function plotCnt(ages) {
         mode: "gauge+number",
         title: {text: "Inscritos"},
         value: sum,
-        gauge: {axis: {visible: true, range: [0, 200]}}
+        gauge: {axis: {visible: true, range: [0, 60]}}
     }];
 
     let layout = [{
