@@ -15,10 +15,13 @@
 {% block body %}
     <p class="lead">
         Este es un formulario para pedir que le recitemos un poema a una persona especial para ti. Es muy importante que nos
-        digas a quien va dedicado y de quien eres tú para que podamos decirle que va la cosa y no le pille por sorpresa.
+        digas <b>a quien</b> va dedicado y <b>quien eres</b> tú para que podamos decirle de qué va la cosa y no le pille por sorpresa.
     </p>
     <p class="lead">
-        Además, llamamos desde España, por lo que no podemos hacer llamadas internacionales *snif* :(
+        Llamaremos el <b>Lunes, 22 de Marzo de 7 a 10</b> de la tarde. Si podemos intentaremos llamar de nuevo si no lo han cogido.
+    </b>
+    <p class="lead">
+        Además, llamamos desde España, por lo que <b>no podemos hacer llamadas internacionales</b> *<i>snif</i>* :(
     </p>
     {% for message in app.flashes('success') %}
         <div class="row alert alert-success">

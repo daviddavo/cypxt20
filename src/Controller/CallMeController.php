@@ -41,7 +41,7 @@ class CallMeController extends AbstractController
             'title' => ($subdomain=='cxt')?'Cuentos por Teléfono':'Poemas por Teléfono',
             'hashtag' => ($subdomain=='cxt')?'cuentosxtelefono':'poemasxtelefono',
             'open' => $cnt <= 60,
-            'fecha' => "Lunes, 22 de Marzo de 2021",
+            'fecha' => "Lunes, 22 de Marzo de 2021 de 19:00 a 22:00",
             'form' => $form->createView()]);
     }
 
