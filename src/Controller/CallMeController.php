@@ -4,6 +4,9 @@
 namespace App\Controller;
 use App\Entity\OnlineCall;
 use App\Form\OnlineCallType;
+
+use DateTime;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +43,7 @@ class CallMeController extends AbstractController
         return $this->render('pxt/index.html.twig', [
             'title' => ($subdomain=='cxt')?'Cuentos por Teléfono':'Poemas por Teléfono',
             'hashtag' => ($subdomain=='cxt')?'cuentosxtelefono':'poemasxtelefono',
-            'open' => $cnt <= 60,
+            'open' => $cnt <= 90 && (new DateTime() > new DateTime('2021-03-13 14:00')),
             'fecha' => "Lunes, 22 de Marzo de 2021 de 19:00 a 22:00",
             'form' => $form->createView()]);
     }
