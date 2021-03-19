@@ -123,15 +123,6 @@
     "php": {
         "version": "7.3"
     },
-    "phpdocumentor/reflection-common": {
-        "version": "2.0.0"
-    },
-    "phpdocumentor/reflection-docblock": {
-        "version": "4.3.4"
-    },
-    "phpdocumentor/type-resolver": {
-        "version": "1.1.0"
-    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -407,9 +398,6 @@
     "symfony/property-access": {
         "version": "v5.0.5"
     },
-    "symfony/property-info": {
-        "version": "v5.0.5"
-    },
     "symfony/routing": {
         "version": "4.2",
         "recipe": {
@@ -447,12 +435,6 @@
     },
     "symfony/security-http": {
         "version": "v5.0.5"
-    },
-    "symfony/serializer": {
-        "version": "v5.0.5"
-    },
-    "symfony/serializer-pack": {
-        "version": "v1.0.2"
     },
     "symfony/service-contracts": {
         "version": "v2.0.1"
@@ -568,8 +550,5 @@
     },
     "twig/twig": {
         "version": "v3.0.3"
-    },
-    "webmozart/assert": {
-        "version": "1.7.0"
     }
 }

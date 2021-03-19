@@ -2,6 +2,37 @@
 {% block title %}
     Lineas disponibles
 {% endblock %}
+{% block header %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3"><b>Lineas Disponibles</b></h1>
+            <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/poemasxtelefono" target="_blank">#poemasxtelefono</a></h1>
+            <h5>Lunes, 22 de Marzo de 2021</h5>
+        </div>
+    </div>
+{% endblock %}
 {% block body %}
-    Pues eso
+    <p>
+        Aquí encontrarás las líneas disponibles. Si está en <b style="color: limegreen">verde</b>, puedes pasarles la llamada. Si está en <b style="color:red">rojo</b>, están ocupados.
+    </p>
+    <table id="table-lineas" class="table table-dark text-center">
+        <thead><tr>
+            <th></th>
+            <th>Teléfono</th>
+            <th>Ubicación</th>
+            <th>Estado</th>
+            <th>Tiempo abierta/cerrada</th>
+        </tr></thead>
+        <tbody>
+        {% for linea in lineas %}
+            <tr data-status="{{ linea.status }}">
+                <td>{{ linea.id }}</td>
+                <td>{{ linea.phoneNumber }}</td>
+                <td>{{ linea.description }}</td>
+                <td>{{ linea.status }}</td>
+                <td data-last-open="{{ linea.lastOpen|date("c") }}" data-last-close="{{ linea.lastClose|date("c") }}"></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

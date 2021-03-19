@@ -36,6 +36,11 @@ class Line
      */
     private $last_close;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $phone_number;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class Line
     public function setLastClose(\DateTimeInterface $last_close): self
     {
         $this->last_close = $last_close;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phone_number;
+    }
+
+    public function setPhoneNumber(string $phone_number): self
+    {
+        $this->phone_number = $phone_number;
 
         return $this;
     }

@@ -1,0 +1,15 @@
+#table-lineas {
+  font-weight: bold;
+
+  & tr {
+    background-color: theme-color('alert');
+  }
+
+  & tr[data-status="idle"] {
+    background-color: theme-color('success') ;
+  }
+
+  & tr[data-status='busy'] {
+    background-color: theme-color('danger');
+  }
+}

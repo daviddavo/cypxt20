@@ -19,6 +19,11 @@ class LineRepository extends ServiceEntityRepository
         parent::__construct($registry, Line::class);
     }
 
+    public function getAll() {
+        return $this->createQueryBuilder('l')
+            ->getQuery()->getArrayResult();
+    }
+
     // /**
     //  * @return Line[] Returns an array of Line objects
     //  */

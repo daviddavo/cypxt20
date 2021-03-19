@@ -7,12 +7,17 @@ use App\Form\OnlineCallType;
 
 use DateTime;
 
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CallMeController extends AbstractController
 {
+    /**
+     * @Route("/", name="home")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function main(Request $request) {
         $call = new OnlineCall();
         $subdomain = explode('.', $request->getHost())[0];

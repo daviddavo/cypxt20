@@ -9,8 +9,8 @@
             {{ encore_entry_link_tags('global') }}
         {% endblock %}
     </head>
-    <body>
-        <main role="main">
+    <body class="d-flex flex-column min-vh-100">
+        <main role="main" class="flex-shrink-0 mb-3">
             {% block header %}{% endblock %}
             <div class="container">
                 {% block body %}{% endblock %}
