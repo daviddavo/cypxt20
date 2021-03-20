@@ -42,6 +42,10 @@ function updateData() {
     });
 }
 
+$('#usageInfo button').click(function() {
+    $('#usageInfo').hide();
+})
+
 $().ready(function () {
     updateTime();
     setInterval(updateTime, 1000);
