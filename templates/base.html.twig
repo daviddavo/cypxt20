@@ -10,11 +10,9 @@
         {% endblock %}
     </head>
     <body class="d-flex flex-column min-vh-100">
-        <main role="main" class="flex-shrink-0 mb-3">
+        <main role="main" class="d-flex flex-column flex-shrink-0 mb-0">
             {% block header %}{% endblock %}
-            <div class="container">
-                {% block body %}{% endblock %}
-            </div>
+            {% block body %}{% endblock %}
         </main>
         {% block footer %}{% include '_footer.twig' %}{% endblock %}
         {% block javascripts %}

@@ -1,17 +1,21 @@
 @import "./global.scss";
 
-#table-lineas {
-  font-weight: bold;
+.linea {
+  background-color: theme-color('alert');
 
-  & tr {
-    background-color: theme-color('alert');
+  &[data-status='idle'] {
+    background-color: theme-color('success');
+
+    & .linea-busy {
+      display: none;
+    }
   }
 
-  & tr[data-status="idle"] {
-    background-color: theme-color('success') ;
-  }
-
-  & tr[data-status='busy'] {
+  &[data-status='busy'] {
     background-color: theme-color('danger');
+
+    & .linea-idle {
+      display: none;
+    }
   }
 }

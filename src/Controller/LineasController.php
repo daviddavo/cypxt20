@@ -32,8 +32,8 @@ class LineasController extends AbstractController {
             throw $this->createNotFoundException("Linea no encontrada");
         }
 
-        return $this->render('pxt/lineas.html.twig', [
-            'lineas' => [$repo->find($id)]
+        return $this->render('pxt/linea.html.twig', [
+            'linea' => $linea
         ]);
     }
 

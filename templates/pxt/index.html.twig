@@ -7,12 +7,13 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-3"><b>{{ title }}</b></h1>
-            <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ hashtag }}" target="_blank">#{{hashtag }}</a></h1>
+            <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ cypxt_hashtag }}" target="_blank">#{{ cypxt_hashtag }}</a></h1>
             <h5>{{ fecha }}</h5>
         </div>
     </div>
 {% endblock %}
 {% block body %}
+<div class="container mb-3">
     <p class="lead">
         Este es un formulario para pedir que le recitemos un poema a una persona especial para ti. Es muy importante que nos
         digas <b>a quien</b> va dedicado y <b>quien eres</b> tú para que podamos decirle de qué va la cosa y no le pille por sorpresa.
@@ -32,4 +33,5 @@
         </div>
     {% endfor %}
     {% include '/pxt/_formGustos.twig' %}
+</div>
 {% endblock %}

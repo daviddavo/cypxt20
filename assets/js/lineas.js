@@ -3,9 +3,8 @@ import '../css/lineas.scss';
 
 function updateTime() {
     const now = new Date();
-    $("#table-lineas .linea").each(function () {
+    $("#wrapper-lineas .linea").each(function () {
         const status = $(this).data("status");
-        console.log($(this).data());
         let t;
         if (status === "idle") {
             t = new Date($(this).data("last_close"));
@@ -16,17 +15,26 @@ function updateTime() {
         }
 
         let d = new Date(now.getTime() - t.getTime());
-        let h = d.getTime() / 1000 / 3600 >> 0;
-        h = h < 10 ? ('0'+h) : h;
-        let m = d.getMinutes() < 10 ? ('0'+d.getMinutes()) : (''+d.getMinutes());
-        let s = d.getSeconds() < 10 ? ('0'+d.getSeconds()) : (''+d.getSeconds());
-        $(this).find(".linea-time").html(`${h}:${m}:${s}`)
+        let sh = d.getTime() / 1000 / 3600 >> 0;
+        sh = sh < 10 ? ('0'+sh) : sh;
+        let sm = d.getMinutes() < 10 ? ('0'+d.getMinutes()) : (''+d.getMinutes());
+        let ss = d.getSeconds() < 10 ? ('0'+d.getSeconds()) : (''+d.getSeconds());
+        $(this).find(".linea-time").html(`${sh}:${sm}:${ss}`)
+
+        let m = d.getTime() / 1000 / 60 >> 0;
+        if (m == 0) {
+            $(this).find(".linea-time-text").html(`${d.getSeconds()} segundos`);
+        } else if (m == 1) {
+            $(this).find(".linea-time-text").html(`${m} minuto y ${d.getSeconds()} segundos`);
+        } else {
+            $(this).find(".linea-time-text").html(`${m} minutos y ${d.getSeconds()} segundos`);
+        }
     })
 }
 
 function updateData() {
     $.get("/api/lineas", function(data) {
-        $("#table-lineas .linea").each(function () {
+        $("#wrapper-lineas .linea").each(function () {
             const id = $(this).data("id");
             $(this).data(data[id]);
             $(this).attr("data-status", data[id].status);

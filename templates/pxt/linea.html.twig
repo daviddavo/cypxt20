@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Lineas disponibles
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('lineas') }}
+{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('lineas') }}
+{% endblock %}
+{% block header %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3"><b>Linea {{ linea.id }}</b></h1>
+            <h1 class="display-4">{{ linea.description }}</h1>
+            <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ cypxt_hashtag }}" target="_blank">#{{ cypxt_hashtag }}</a></h1>
+            <h5>{{ cypxt_date }}</h5>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <p>
+            Si está en verde es que abajo aparece en verde. Es decir, recibiréis llamadas. Si está en <b style="color: red">rojo</b> NO recibiréis llamadas.
+            Pulsa el recuadro para cambiar el color y pasar a recibir llamadas o dejar de recibirlas. ¿Te ha quedado claro?
+        </p>
+    </div>
+    <div id="wrapper-lineas" class="flex-grow-1">
+        <div class="linea container-fluid text-light d-flex flex-column"
+            data-status="{{ linea.status }}"
+            data-id="{{ linea.id }}"
+            data-last_open="{{ linea.lastOpen|date("c") }}"
+            data-last_close="{{ linea.lastClose|date("c") }}">
+            <div class="container py-3 flex-column">
+                <p class="display-4">Estáis <b class="linea-idle">libres</b><b class="linea-busy">en&nbsp;llamada</b></p>
+                <p class="lead linea-idle">Tiempo sin llamadas:</p>
+                <p class="lead linea-busy">Tiempo de llamada:</p>
+                <p class="linea-time-text"></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
