@@ -1,5 +1,39 @@
 @import "./global.scss";
 
+button#wrapper-lineas {
+  padding: 0;
+  border: 0;
+
+  & .spinner-border {
+    height: 5em;
+    width: 5em;
+  }
+
+  &:disabled {
+    & .linea {
+      background-color: theme-color('secondary') !important;
+
+      & *:not(.loading-text) {
+        display: none;
+      }
+
+      & > * {
+        display: block!important;
+      }
+    }
+
+    & .linea-busy, & .linea-idle {
+      display: none;
+    }
+  }
+
+  &:not(:disabled) {
+    & .linea .loading-text {
+      display: none;
+    }
+  }
+}
+
 .linea {
   background-color: theme-color('alert');
 

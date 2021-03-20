@@ -28,18 +28,20 @@
             Pulsa el recuadro para cambiar el color y pasar a recibir llamadas o dejar de recibirlas. ¿Te ha quedado claro?
         </p>
     </div>
-    <div id="wrapper-lineas" class="d-flex flex-grow-1 flex-column">
+    <button type="button" id="wrapper-lineas" class="d-flex flex-grow-1 flex-column">
         <div class="linea text-light d-flex flex-grow-1 flex-column"
             data-status="{{ linea.status }}"
             data-id="{{ linea.id }}"
             data-last_open="{{ linea.lastOpen|date("c") }}"
             data-last_close="{{ linea.lastClose|date("c") }}">
-            <div class="container py-3 flex-column">
+            <div class="container py-3 d-flex flex-column justify-content-center">
+                <p class="display-4 loading-text">Cargando...</p>
+                <div class="spinner-border loading-text" role="status"></div>
                 <p class="display-4">Estáis <b class="linea-idle">libres</b><b class="linea-busy">en&nbsp;llamada</b></p>
                 <p class="lead linea-idle">Tiempo sin llamadas:</p>
                 <p class="lead linea-busy">Tiempo de llamada:</p>
                 <p class="linea-time-text"></p>
             </div>
         </div>
-    </div>
+    </button>
 {% endblock %}

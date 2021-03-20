@@ -23,7 +23,7 @@ class LineasController extends AbstractController {
     }
 
     /**
-     * @Route("/lineas/{id}", name="linea_id")
+     * @Route("/lineas/{id}", name="linea_id", methods={"GET"})
      */
     public function mainLinea(int $id) {
         $repo = $this->getDoctrine()->getRepository(Line::class);
@@ -38,7 +38,7 @@ class LineasController extends AbstractController {
     }
 
     /**
-     * @Route("/api/lineas", name="api_lineas")
+     * @Route("/api/lineas", name="api_lineas", methods={"GET"})
      */
     public function api() {
         $repo = $this->getDoctrine()->getRepository(Line::class);
@@ -54,5 +54,24 @@ class LineasController extends AbstractController {
             ];
         }
         return new JsonResponse($r);
+    }
+
+    /**
+     * @Route("/api/lineas/toggle/{id}", name="api_linea_toggle", methods={"GET", "PUT"})
+     */
+    public function api_linea_toggle(int $id) {
+        $repo = $this->getDoctrine()->getRepository(Line::class);
+        $l = $repo->find($id);
+        if (is_null($l)) {
+            throw $this->createNotFoundException("Linea no encontrada");
+        }
+
+        $l->toggleStatus();
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($l);
+        $entityManager->flush();
+
+        return new JsonResponse(["status"=>"OK"]);
     }
 }

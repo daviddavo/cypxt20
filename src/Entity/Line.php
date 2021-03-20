@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -102,6 +103,19 @@ class Line
     public function setPhoneNumber(string $phone_number): self
     {
         $this->phone_number = $phone_number;
+
+        return $this;
+    }
+
+    public function toggleStatus(): self
+    {
+        if ($this->status == 'idle') {
+            $this->status = 'busy';
+            $this->last_open = new DateTime();
+        } else {
+            $this->status = 'idle';
+            $this->last_close = new DateTime();
+        }
 
         return $this;
     }

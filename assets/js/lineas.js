@@ -1,7 +1,7 @@
 import './global.js';
 import '../css/lineas.scss';
 
-function updateTime() {
+function updateTime(callback) {
     const now = new Date();
     $("#wrapper-lineas .linea").each(function () {
         const status = $(this).data("status");
@@ -30,21 +30,39 @@ function updateTime() {
             $(this).find(".linea-time-text").html(`${m} minutos y ${d.getSeconds()} segundos`);
         }
     })
+
+    if (callback) {
+        callback();
+    }
 }
 
-function updateData() {
+function updateData(callback) {
     $.get("/api/lineas", function(data) {
         $("#wrapper-lineas .linea").each(function () {
             const id = $(this).data("id");
             $(this).data(data[id]);
             $(this).attr("data-status", data[id].status);
+            updateTime(callback);
         });
     });
 }
 
 $('#usageInfo button').click(function() {
     $('#usageInfo').hide();
-})
+});
+
+function clickToggleLinea() {
+    console.log("Clicked toggleLinea");
+    let b = $(this);
+    const id = $(this).find(".linea").data("id");
+    b.prop('disabled', true);
+
+    $.get(`/api/lineas/toggle/${id}`, function () {
+        updateData(function () {b.prop('disabled', false)});
+    });
+}
+
+$('button#wrapper-lineas').click(clickToggleLinea);
 
 $().ready(function () {
     updateTime();
