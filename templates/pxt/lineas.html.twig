@@ -31,12 +31,16 @@
         </tr></thead>
         <tbody>
         {% for linea in lineas %}
-            <tr data-status="{{ linea.status }}">
+            <tr class="linea"
+                data-status="{{ linea.status }}"
+                data-id="{{ linea.id }}"
+                data-last_open="{{ linea.lastOpen|date("c") }}"
+                data-last_close="{{ linea.lastClose|date("c") }}">
                 <td>{{ linea.id }}</td>
                 <td>{{ linea.phoneNumber }}</td>
                 <td>{{ linea.description }}</td>
-                <td>{{ linea.status }}</td>
-                <td data-last-open="{{ linea.lastOpen|date("c") }}" data-last-close="{{ linea.lastClose|date("c") }}"></td>
+                <td class="linea-status">{{ linea.status }}</td>
+                <td class="linea-time"></td>
             </tr>
         {% endfor %}
         </tbody>
