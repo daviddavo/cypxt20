@@ -27,13 +27,32 @@ class LineasController extends AbstractController {
      */
     public function mainLinea(int $id) {
         $repo = $this->getDoctrine()->getRepository(Line::class);
-        $linea = $repo->find($id);
+        $prev = null;
+        $linea = null;
+        $next = null;
+
+        // TODO: Optimize this
+        foreach ($repo->findAll() as $i) {
+            if (!is_null($linea)) {
+                $next = $i;
+                break;
+            }
+
+            if ($i->getId() == $id) {
+                $linea = $i;
+            } else {
+                $prev = $i;
+            }
+        }
+
         if (is_null($linea)) {
             throw $this->createNotFoundException("Linea no encontrada");
         }
 
         return $this->render('pxt/linea.html.twig', [
-            'linea' => $linea
+            'linea' => $linea,
+            'prev' => $prev,
+            'next' => $next
         ]);
     }
 

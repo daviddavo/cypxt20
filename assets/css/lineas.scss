@@ -1,4 +1,5 @@
 @import "./global.scss";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css");
 
 button#wrapper-lineas {
   padding: 0;
@@ -34,6 +35,27 @@ button#wrapper-lineas {
   }
 }
 
+#changeLineButtons {
+  background-color: theme-color('secondary');
+  color: theme-color('light')!important;
+
+  & a {
+    color: theme-color('light');
+    text-decoration: none;
+  }
+
+  & .bi {
+    font-size: 3em;
+  }
+   & .col + .col {
+     border-left: 1px solid theme-color('light');
+   }
+}
+
+tr.linea {
+  cursor: pointer;
+}
+
 .linea {
   background-color: theme-color('alert');
 
@@ -52,4 +74,8 @@ button#wrapper-lineas {
       display: none;
     }
   }
+}
+
+button.close {
+  font-size: 3em;
 }

@@ -11,7 +11,8 @@
 {% block header %}
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-3"><b>Lineas Disponibles</b></h1>
+            <h1 class="display-4 d-md-none"><b>Lineas Disponibles</b></h1>
+            <h1 class="display-3 d-none d-md-block"><b>Lineas Disponibles</b></h1>
             <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ cypxt_hashtag }}" target="_blank">#{{ cypxt_hashtag }}</a></h1>
             <h5>{{ cypxt_date }}</h5>
         </div>
@@ -24,10 +25,10 @@
     </p>
     <table id="wrapper-lineas" class="table table-dark text-center">
         <thead><tr>
-            <th></th>
-            <th>Teléfono</th>
+            <th>id</th>
+            <th class="d-none d-md-block">Teléfono</th>
             <th>Ubicación</th>
-            <th>Estado</th>
+            <th class="d-none d-lg-block">Estado</th>
             <th>Tiempo abierta/cerrada</th>
         </tr></thead>
         <tbody>
@@ -38,9 +39,9 @@
                 data-last_open="{{ linea.lastOpen|date("c") }}"
                 data-last_close="{{ linea.lastClose|date("c") }}">
                 <td>{{ linea.id }}</td>
-                <td>{{ linea.phoneNumber }}</td>
+                <td class="d-none d-md-block">{{ linea.phoneNumber }}</td>
                 <td>{{ linea.description }}</td>
-                <td class="linea-status">{{ linea.status }}</td>
+                <td class="linea-status d-none d-lg-block">{{ linea.status }}</td>
                 <td class="linea-time"></td>
             </tr>
         {% endfor %}

@@ -19,13 +19,39 @@
     </div>
 {% endblock %}
 {% block body %}
+    <div id="changeLineButtons" class="container-fluid">
+        <div class="row">
+        {% if prev is null %}
+        {% else %}
+            <a href="{{ path('linea_id', {'id': prev.id }) }}" class="text-center col">
+                <div>
+                    <i class="bi bi-chevron-left"></i>
+                </div>
+            </a>
+        {% endif %}
+        {% if next is null %}
+        {% else %}
+            <a href="{{ path('linea_id', {'id': next.id }) }}" class="text-center col">
+                <div>
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+            </a>
+        {% endif %}
+        </div>
+    </div>
     <div id="usageInfo" class="container pt-3">
         <button type="button" class="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
         <p>
             Si está en verde es que abajo aparece en verde. Es decir, recibiréis llamadas. Si está en <b style="color: red">rojo</b> NO recibiréis llamadas.
-            Pulsa el recuadro para cambiar el color y pasar a recibir llamadas o dejar de recibirlas. ¿Te ha quedado claro?
+            Pulsa el recuadro para cambiar el color y pasar a recibir llamadas o dejar de recibirlas.
+        </p>
+        <p>
+            Pulsa las flechitas para ir a controlar la anterior/siguiente línea
+        </p>
+        <p>
+            ¿Te ha quedado claro?
         </p>
     </div>
     <button type="button" id="wrapper-lineas" class="d-flex flex-grow-1 flex-column">

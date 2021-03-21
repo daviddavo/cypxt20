@@ -63,6 +63,9 @@ function clickToggleLinea() {
 }
 
 $('button#wrapper-lineas').click(clickToggleLinea);
+$('tr.linea').click(function() {
+   window.location = `/lineas/${$(this).data('id')}`;
+});
 
 $().ready(function () {
     updateTime();
