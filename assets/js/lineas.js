@@ -47,9 +47,15 @@ function updateData(callback) {
     });
 }
 
-$('#usageInfo button').click(function() {
+function hideUsage() {
     $('#usageInfo').hide();
-});
+    $('#changeLineButtons a').each(function() {
+        let href = $(this).prop('href') + '?hideUsage';
+        $(this).prop('href', href);
+    });
+}
+
+$('#usageInfo button.close').click(hideUsage);
 
 function clickToggleLinea() {
     console.log("Clicked toggleLinea");
@@ -68,6 +74,12 @@ $('tr.linea').click(function() {
 });
 
 $().ready(function () {
+    const params = new URLSearchParams(window.location.search);
+    console.log(params);
+    if (params.has('hideUsage')) {
+        hideUsage();
+    }
+
     updateTime();
     setInterval(updateTime, 1000);
 
