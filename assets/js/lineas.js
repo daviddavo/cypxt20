@@ -45,8 +45,8 @@ function updateData(callback) {
             const id = $(this).data("id");
             console.log(d - Date.now());
             $(this).data(data[id]);
-            data[id].last_open = (Date.parse(data[id].last_open) + d - Date.now());
-            data[id].last_close =  (Date.parse(data[id].last_close) + d - Date.now());
+            data[id].last_open = (Date.parse(data[id].last_open) + Date.now() - d);
+            data[id].last_close =  (Date.parse(data[id].last_close) + Date.now() - d);
             console.log(data[id]);
             $(this).attr("data-status", data[id].status);
             updateTime(callback);
