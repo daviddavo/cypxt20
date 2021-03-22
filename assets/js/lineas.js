@@ -1,6 +1,8 @@
 import './global.js';
 import '../css/lineas.scss';
 
+const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
+
 function updateTime(callback) {
     const now = new Date();
     $("#wrapper-lineas .linea").each(function () {
@@ -37,10 +39,15 @@ function updateTime(callback) {
 }
 
 function updateData(callback) {
-    $.get("/api/lineas", function(data) {
+    $.get("/api/lineas", function(data, textStatus, jqXHR) {
+        let d = Date.parse(jqXHR.getResponseHeader("date"));
         $("#wrapper-lineas .linea").each(function () {
             const id = $(this).data("id");
+            console.log(d - Date.now());
             $(this).data(data[id]);
+            data[id].last_open = (Date.parse(data[id].last_open) + d - Date.now());
+            data[id].last_close =  (Date.parse(data[id].last_close) + d - Date.now());
+            console.log(data[id]);
             $(this).attr("data-status", data[id].status);
             updateTime(callback);
         });
