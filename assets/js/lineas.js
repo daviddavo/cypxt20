@@ -91,5 +91,10 @@ $().ready(function () {
     setInterval(updateTime, 1000);
 
     updateData();
-    setInterval(updateData, 5000);
+
+    let updateInterval = 5000;
+    if (params.has('updateInterval')) {
+        updateInterval=params.get("updateInterval");
+    }
+    setInterval(updateData, updateInterval);
 });
