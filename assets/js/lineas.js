@@ -43,8 +43,8 @@ function updateData(callback) {
         let d = Date.parse(jqXHR.getResponseHeader("date"));
         $("#wrapper-lineas .linea").each(function () {
             const id = $(this).data("id");
-            data[id].last_open = (Date.parse(data[id].last_open) + d - Date.now());
-            data[id].last_close =  (Date.parse(data[id].last_close) + (d - Date.now()));
+            data[id].last_open = (Date.parse(data[id].last_open) + Date.now() - d);
+            data[id].last_close =  (Date.parse(data[id].last_close) + Date.now() - d);
             $(this).data(data[id]);
             $(this).attr("data-status", data[id].status);
             updateTime(callback);
