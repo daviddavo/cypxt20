@@ -26,9 +26,9 @@
     <table id="wrapper-lineas" class="table table-dark text-center">
         <thead><tr>
             <th>id</th>
-            <th class="d-none d-md-block">Teléfono</th>
+            <th class="d-none d-md-table-cell">Teléfono</th>
             <th>Ubicación</th>
-            <th class="d-none d-lg-block">Estado</th>
+            <th class="d-none d-lg-table-cell">Estado</th>
             <th>Tiempo abierta/cerrada</th>
         </tr></thead>
         <tbody>
@@ -39,9 +39,9 @@
                 data-last_open="{{ linea.lastOpen|date("c") }}"
                 data-last_close="{{ linea.lastClose|date("c") }}">
                 <td>{{ linea.id }}</td>
-                <td class="d-none d-md-block">{{ linea.phoneNumber }}</td>
+                <td class="d-none d-md-table-cell">{{ linea.phoneNumber }}</td>
                 <td>{{ linea.description }}</td>
-                <td class="linea-status d-none d-lg-block">{{ linea.status }}</td>
+                <td class="linea-status d-none d-lg-table-cell">{{ linea.status }}</td>
                 <td class="linea-time"></td>
             </tr>
         {% endfor %}
