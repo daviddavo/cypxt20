@@ -2,6 +2,6 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     form_themes: ['bootstrap_4_layout.html.twig']
     globals:
-        cypxt_title: Poemas por Teléfono
-        cypxt_date: Lunes, 22 de Marzo de 2021
-        cypxt_hashtag: poemasxtelefono
+        cypxt_title: Cuentos por Teléfono
+        cypxt_date: Viernes, 23 de Abril de 2021
+        cypxt_hashtag: cuentosxtelefono
