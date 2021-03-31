@@ -27,32 +27,6 @@ build:
      - yarn install --no-dev
      - yarn encore prod
 
-build composer:
-  stage: build
-  only:
-    changes:
-      - composer.lock
-  artifacts:
-    paths:
-      - vendor/
-  before_script:
-    - apk add composer
-  script:
-    - php -v
-    - composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest
-
-# - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./node_modules $FTP_PATH/node_modules"
-
-# upload composer:
-#   stage: deploy
-#   only:
-#     changes:
-#       - composer.lock
-#   before_script:
-#     - apk add lftp
-#   script:
-#     - lftp -c "set ftp:ssl-allow no; set ftp:list-options -a; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -c --verbose -Re -P 10 ./vendor $FTP_PATH/vendor"
-
 upload:
   stage: deploy
   before_script:
@@ -64,8 +38,5 @@ upload:
     - ssh-keyscan cypxt.montandoellocal.com >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - rsync -rltvzO --delete --exclude-from=.ftpignore --exclude=vendor/ --exclude=node_modules/ ./ ec2-user@cypxt.montandoellocal.com:/var/www/cypxt/
-    - ssh ec2-user@cypxt.montandoellocal.com whoami
-    - '[ -d "node_modules/" ] && rsync -rltvz --delete ./node_modules ec2-user@cypxt.montandoellocal.com:/var/www/cypxt/node_modules'
-    - '[ -d "vendor/" ] && rsync -rltvz --delete ./vendor ec2-user@cypxt.montandoellocal.com:/var/www/cypxt/vendor'
-    - ssh ec2-user@cypxt.montandoellocal.com 'cd /var/www/cypxt && php bin/console doctrine:migrations:diff && php bin/console doctrine:migrations:migrate -n && php bin/console cache:clear && php bin/console cache:warmup'
+    - ./upload.sh
+    - ssh cypxt@cypxt.montandoellocal.com "cd $WEB_DIR && ./postdeploy.sh"
