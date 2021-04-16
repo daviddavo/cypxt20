@@ -24,6 +24,13 @@ class LineRepository extends ServiceEntityRepository
             ->getQuery()->getArrayResult();
     }
 
+    public function getPhoneNumbers() {
+        return array_column($this->createQueryBuilder('l')
+            ->select('l.phone_number')
+            ->distinct()
+            ->getQuery()->getResult(), 'phone_number');
+    }
+
     // /**
     //  * @return Line[] Returns an array of Line objects
     //  */

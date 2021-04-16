@@ -2,6 +2,7 @@
 
 
 namespace App\Controller;
+use App\Entity\Line;
 use App\Entity\OnlineCall;
 use App\Form\OnlineCallType;
 
@@ -70,6 +71,10 @@ class CallMeController extends AbstractController
         $maxapplications = $this->getParameter('app.maxapplications_perperson');
         $remaining = $maxapplications - $repo->countByIp($request->getClientIp());
 
+        // Getting lines (to show if failed)
+        $repolines = $this->getDoctrine()->getRepository(Line::class);
+        $phonenumbers = $repolines->getPhoneNumbers();
+
         if ($remaining == 1) {
            $this->addFlash('warning', "Esta es tu ultima petición, así que ¡piensátelo bien!");
         }
@@ -79,6 +84,7 @@ class CallMeController extends AbstractController
             'cypxt_params' => $configparams,
             'open' => $cnt <= 70 && (new DateTime() > new DateTime('2021-03-13 14:00')),
             'remaining' => $remaining,
+            'phonenumbers' => $phonenumbers,
             'form' => $form->createView()]);
     }
 
