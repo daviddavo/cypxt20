@@ -21,10 +21,11 @@ class CallMeController extends AbstractController
     public function main(Request $request) {
         $call = new OnlineCall();
         $subdomain = explode('.', $request->getHost())[0];
+        $configparams = $this->getParameter($subdomain=='cxt'?'app.cxt':'app.pxt');
 
         $form = $this->createForm(OnlineCallType::class, $call, [
-            'singular' => ($subdomain=='cxt')?'cuento':'poema',
-            'plural' => ($subdomain=='cxt')?'cuentos':'poemas'
+            'singular' => $configparams['cop_sing'],
+            'plural' => $configparams['cop_plural']
         ]);
         $form->handleRequest($request);
         $entityManager = $this->getDoctrine()->getManager();
@@ -45,7 +46,6 @@ class CallMeController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(OnlineCall::class);
         $cnt = $repo->getTotalCnt();
 
-        $configparams = $this->getParameter($subdomain=='cxt'?'app.cxt':'app.pxt');
 
         return $this->render('pxt/index.html.twig', [
             'title' => $configparams['title'],
