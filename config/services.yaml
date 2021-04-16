@@ -4,6 +4,19 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    maxapplications: 70
+    app.cxt:
+        title: Cuentos por Teléfono
+        date_long: Viernes, 23 de Abril de 2021
+        date_calls: Viernes, 23 de Abril de 6 a 10
+        hashtag: cuentosxtelefono
+        cop_sing: cuento
+    app.pxt:
+        title: Poemas por Teléfono
+        date_long: Lunes, 22 de Marzo de 2021
+        date_calls: Lunes, 22 de Marzo de 7 a 10
+        hashtag: poemasxtelefono
+        cop_sing: poema
 
 services:
     # default configuration for services in *this* file

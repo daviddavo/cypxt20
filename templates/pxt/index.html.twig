@@ -7,22 +7,22 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-3"><b>{{ title }}</b></h1>
-            <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ cypxt_hashtag }}" target="_blank">#{{ cypxt_hashtag }}</a></h1>
-            <h5>{{ fecha }}</h5>
+            <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ cypxt_params.hashtag }}" target="_blank">#{{ cypxt_params.hashtag }}</a></h1>
+            <h5>{{ cypxt_params.date_long }}</h5>
         </div>
     </div>
 {% endblock %}
 {% block body %}
 <div class="container mb-3">
     <p class="lead">
-        Este es un formulario para pedir que le recitemos un poema a una persona especial para ti. Es muy importante que nos
+        Este es un formulario para pedir que le recitemos un {{ cypxt_params.cop_sing }} a una persona especial para ti. Es muy importante que nos
         digas <b>a quien</b> va dedicado y <b>quien eres</b> tú para que podamos decirle de qué va la cosa y no le pille por sorpresa.
     </p>
     <p class="lead">
         El formulario se cerrará tras unas cuantas peticiones, así que, por favor, envía sólo una y piensáte bien a quién.
     </p>
     <p class="lead">
-        Llamaremos el <b>Lunes, 22 de Marzo de 7 a 10</b> de la tarde. Si podemos intentaremos llamar de nuevo si no lo han cogido.
+        Llamaremos el <b>{{ cypxt_params.date_calls }}</b> de la tarde. Si podemos intentaremos llamar de nuevo si no lo han cogido.
     </b>
     <p class="lead">
         Además, llamamos desde España, por lo que <b>no podemos hacer llamadas internacionales</b> *<i>snif</i>* :(
@@ -32,6 +32,6 @@
             {{ message }}
         </div>
     {% endfor %}
-    {% include '/pxt/_formGustos.twig' %}
+    {% include '/pxt/_form.twig' %}
 </div>
 {% endblock %}

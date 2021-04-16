@@ -45,11 +45,12 @@ class CallMeController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(OnlineCall::class);
         $cnt = $repo->getTotalCnt();
 
+        $configparams = $this->getParameter($subdomain=='cxt'?'app.cxt':'app.pxt');
+
         return $this->render('pxt/index.html.twig', [
-            'title' => ($subdomain=='cxt')?'Cuentos por Teléfono':'Poemas por Teléfono',
-            'hashtag' => ($subdomain=='cxt')?'cuentosxtelefono':'poemasxtelefono',
-            'open' => $cnt <= 90 && (new DateTime() > new DateTime('2021-03-13 14:00')),
-            'fecha' => "Lunes, 22 de Marzo de 2021 de 19:00 a 22:00",
+            'title' => $configparams['title'],
+            'cypxt_params' => $configparams,
+            'open' => $cnt <= 70 && (new DateTime() > new DateTime('2021-03-13 14:00')),
             'form' => $form->createView()]);
     }
 
