@@ -1,7 +1,12 @@
 <!-- Based on https://www.w3schools.com/howto/howto_js_form_steps.asp -->
 <!--<form id="cuentameForm">-->
 {% if open %}
-{{ form(form) }}
+    {% if remaining <= 0 %}
+        <h1>Máximo de solicitudes alcanzado</h1>
+        <p>Lo sentimos, has alcanzado el máximo de solicitudes permitido :(</p>
+    {% else %}
+        {{ form(form) }}
+    {% endif %}
 {% else %}
     <h1>Solicitudes cerradas</h1>
     <p>Lo sentimos, pero el formulario está cerrado. Hemos llegado al máximo de solicitudes que podemos abarcar, ¡muchas

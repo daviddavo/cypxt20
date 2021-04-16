@@ -51,6 +51,11 @@ class OnlineCall
      */
     private $fromName;
 
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    private $ip;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,6 +141,18 @@ class OnlineCall
     public function setFromName(string $fromName): self
     {
         $this->fromName = $fromName;
+
+        return $this;
+    }
+
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    public function setIp($ip): self
+    {
+        $this->ip = $ip;
 
         return $this;
     }

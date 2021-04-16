@@ -22,7 +22,7 @@
             Las solicitudes de anónimos o pseudónimos no serán procesadas
         </p>
         <p>
-            El formulario se cerrará tras unas cuantas peticiones, así que, por favor, envía sólo una y piénsate bien a quién.
+            Tan sólo puedes realizar {{ maxapp }} peticiones, así que, por favor, piénsate bien a quién antes de enviar el formulario, una vez enviado... ¡no se puede cambiar!
         </p>
         <p>
             Llamaremos el <b>{{ cypxt_params.date_calls }}</b> de la tarde. Si podemos intentaremos llamar de nuevo si no lo han cogido.
@@ -34,7 +34,7 @@
             ME VOY A CLASE.<br> RECUERDA. <br>AQUI VA LO DE ACEPTAR Y CONTINUAR
         </div>
     </div>
-    <div class="container">
+    <div class="container mb-3">
         {% include '/pxt/_tratdatos.html.twig' %}
     </div>
 {% endblock %}

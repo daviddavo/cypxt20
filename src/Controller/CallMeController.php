@@ -28,6 +28,7 @@ class CallMeController extends AbstractController
 
         return $this->render('pxt/welcome.html.twig', [
             'title' => $params['title'],
+            'maxapp' => $this->getParameter('app.maxapplications_perperson'),
             'cypxt_params' => $params
         ]);
     }
@@ -40,6 +41,7 @@ class CallMeController extends AbstractController
         $call = new OnlineCall();
         $configparams = $this->getParamsFromHostname($request);
 
+        // Creating the form
         $form = $this->createForm(OnlineCallType::class, $call, [
             'singular' => $configparams['cop_sing'],
             'plural' => $configparams['cop_plural']
@@ -47,8 +49,10 @@ class CallMeController extends AbstractController
         $form->handleRequest($request);
         $entityManager = $this->getDoctrine()->getManager();
 
+        // Form submission
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            $data->setIp($request->getClientIp());
             $entityManager->persist($data);
             $entityManager->flush();
 
@@ -60,14 +64,21 @@ class CallMeController extends AbstractController
             return $this->redirect($request->getUri());
         }
 
+        // Getting total cnt and number of submissions
         $repo = $this->getDoctrine()->getRepository(OnlineCall::class);
         $cnt = $repo->getTotalCnt();
+        $maxapplications = $this->getParameter('app.maxapplications_perperson');
+        $remaining = $maxapplications - $repo->countByIp($request->getClientIp());
 
+        if ($remaining == 1) {
+           $this->addFlash('warning', "Esta es tu ultima petición, así que ¡piensátelo bien!");
+        }
 
         return $this->render('pxt/index.html.twig', [
             'title' => $configparams['title'],
             'cypxt_params' => $configparams,
             'open' => $cnt <= 70 && (new DateTime() > new DateTime('2021-03-13 14:00')),
+            'remaining' => $remaining,
             'form' => $form->createView()]);
     }
 
