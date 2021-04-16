@@ -61,7 +61,7 @@ class OnlineCallType extends AbstractType
             ])*/
             ->add('number', TelType::class, [
                 'label' => 'Número fijo o móvil (preferiblemente fijo)',
-                'help' => '¿A qué número quieres que te llamemos?',
+                'help' => '¿A qué número quieres que llamemos?',
                 'required' => true
             ])
             ->add('comment', TextAreaType::class, [

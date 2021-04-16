@@ -14,16 +14,8 @@
 {% endblock %}
 {% block body %}
 <div class="container mb-3">
-    {% for message in app.flashes('success') %}
-        <div class="row alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-    {% for message in app.flashes('warning') %}
-        <div class="row alert alert-warning">
-            {{ message }}
-        </div>
-    {% endfor %}
-    {% include '/pxt/_form.twig' %}
+    {% include '/pxt/_messages.html.twig' %}
+    {{ form(form) }}
+    {% include '/pxt/_tratdatos.html.twig' %}
 </div>
 {% endblock %}
