@@ -1,28 +1,16 @@
 <!-- Based on https://www.w3schools.com/howto/howto_js_form_steps.asp -->
 <!--<form id="cuentameForm">-->
-{% if open %}
-    {% if remaining <= 0 %}
-        <h1>Máximo de solicitudes alcanzado</h1>
-        <p>Lo sentimos, has alcanzado el máximo de solicitudes permitido :(</p>
-        <p>Aun así, puedes llamarnos el {{ cypxt_params.date_long }} a los siguientes teléfonos:</p>
-        <ul>
-            {% for phonenumber in phonenumbers %}
-                <li><a href="tel:{{ phonenumber }}">{{ phonenumber }}</a></li>
-            {% endfor %}
-        </ul>
-        <p>Esperamos que nos llames el año que viene en Poemas o Cuentos por Teléfono. ¡Nos vemos!</p>
-    {% else %}
-        {{ form(form) }}
-    {% endif %}
-{% else %}
-    <h1>Solicitudes cerradas</h1>
-    <p>Lo sentimos, pero el formulario está cerrado. Hemos llegado al máximo de solicitudes que podemos abarcar</p>
+{% if remaining <= 0 %}
+    <h1>Máximo de solicitudes alcanzado</h1>
+    <p>Lo sentimos, has alcanzado el máximo de solicitudes permitido :(</p>
     <p>Aun así, puedes llamarnos el {{ cypxt_params.date_long }} a los siguientes teléfonos:</p>
     <ul>
         {% for phonenumber in phonenumbers %}
             <li><a href="tel:{{ phonenumber }}">{{ phonenumber }}</a></li>
         {% endfor %}
     </ul>
-    <p>¡Muchas gracias a todas y todos!</p>
+    <p>Esperamos que nos llames el año que viene en Poemas o Cuentos por Teléfono. ¡Nos vemos!</p>
+{% else %}
+    {{ form(form) }}
 {% endif %}
 {% include '/pxt/_tratdatos.html.twig' %}

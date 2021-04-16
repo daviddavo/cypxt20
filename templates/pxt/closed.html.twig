@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ cypxt_params.title }}
+{% endblock %}
+{% block header %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3"><b>{{ cypxt_params.title }}</b></h1>
+            <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ cypxt_params.hashtag }}" target="_blank">#{{ cypxt_params.hashtag }}</a></h1>
+            <h5>{{ cypxt_params.date_long }}</h5>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <h1>Solicitudes cerradas</h1>
+        <p>Lo sentimos, pero el formulario está cerrado. Hemos llegado al máximo de solicitudes que podemos abarcar</p>
+        <p>Aun así, puedes llamarnos el {{ cypxt_params.date_long }} a los siguientes teléfonos:</p>
+        <ul>
+            {% for phonenumber in phonenumbers %}
+                <li><a href="tel:{{ phonenumber }}">{{ phonenumber }}</a></li>
+            {% endfor %}
+        </ul>
+        <p>También puedes seguirnos en <a href="https://twitter.com/montandoellocal" rel="nofollow">Twitter</a> o <a href="https://www.instagram.com/montando_el_local" rel="nofollow">Instagram</a> y decirnos qué tal lo hemos hecho</p>
+        <p>¡Muchas gracias a todas y todos!</p>
+    </div>
+{% endblock %}

@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Line;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,11 +15,13 @@ class LineasController extends AbstractController {
     /**
      * @Route("/lineas", name="lineas")
      */
-    public function main() {
+    public function main(Request $request) {
         $repo = $this->getDoctrine()->getRepository(Line::class);
+        $subdomain = explode('.', $request->getHost())[0];
 
         return $this->render('pxt/lineas.html.twig', [
-            'lineas' => $repo->findAll()
+            'lineas' => $repo->findAll(),
+            'cypxt_params' => $this->getParameter($subdomain=='cxt'?'app.cxt':'app.pxt')
         ]);
     }
 
