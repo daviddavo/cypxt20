@@ -28,7 +28,8 @@ class StatsController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(OnlineCall::class);
         return new JSONResponse([
             "ages" => $repo->getAgeCounts(),
-            "hours" => $repo->getHourCounts()
+            "hours" => $repo->getHourCounts(),
+            "expected" => $this->getParameter('app.maxapplications')
         ]);
     }
 }

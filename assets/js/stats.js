@@ -15,7 +15,7 @@ const barlayout = {
     bargap :0.05
 };
 
-function plotCnt(ages) {
+function plotCnt(ages, expected) {
     let sum = 0;
     ages.forEach(function(r) {
         sum += +r["cnt"];
@@ -26,7 +26,7 @@ function plotCnt(ages) {
         mode: "gauge+number",
         title: {text: "Inscritos"},
         value: sum,
-        gauge: {axis: {visible: true, range: [0, 90]}}
+        gauge: {axis: {visible: true, range: [0, expected]}}
     }];
 
     let layout = [{
@@ -96,7 +96,7 @@ $.ajax({
     success: function(result) {
         plotAges(result["ages"]);
         plotHours(result["hours"]);
-        plotCnt(result["ages"]);
+        plotCnt(result["ages"], result["expected"]);
     },
     error: function(error) {
         console.error(error)
