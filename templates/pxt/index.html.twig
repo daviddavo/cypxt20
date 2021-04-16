@@ -14,19 +14,6 @@
 {% endblock %}
 {% block body %}
 <div class="container mb-3">
-    <p class="lead">
-        Este es un formulario para pedir que le recitemos un {{ cypxt_params.cop_sing }} a una persona especial para ti. Es muy importante que nos
-        digas <b>a quien</b> va dedicado y <b>quien eres</b> tú para que podamos decirle de qué va la cosa y no le pille por sorpresa.
-    </p>
-    <p class="lead">
-        El formulario se cerrará tras unas cuantas peticiones, así que, por favor, envía sólo una y piensáte bien a quién.
-    </p>
-    <p class="lead">
-        Llamaremos el <b>{{ cypxt_params.date_calls }}</b> de la tarde. Si podemos intentaremos llamar de nuevo si no lo han cogido.
-    </b>
-    <p class="lead">
-        Además, llamamos desde España, por lo que <b>no podemos hacer llamadas internacionales</b> *<i>snif</i>* :(
-    </p>
     {% for message in app.flashes('success') %}
         <div class="row alert alert-success">
             {{ message }}

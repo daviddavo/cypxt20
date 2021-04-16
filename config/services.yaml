@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     app.maxapplications: 70
+    app.maxapplications_perperson: 3
     app.cxt:
         title: Cuentos por Teléfono
         date_long: Viernes, 23 de Abril de 2021
@@ -12,6 +13,7 @@ parameters:
         hashtag: cuentosxtelefono
         cop_sing: cuento
         cop_plural: cuentos
+        cop_phrase_question: contemos un cuento
     app.pxt:
         title: Poemas por Teléfono
         date_long: Lunes, 22 de Marzo de 2021
@@ -19,6 +21,7 @@ parameters:
         hashtag: poemasxtelefono
         cop_sing: poema
         cop_plural: poemas
+        cop_phrase_question: recitemos un poema
 
 services:
     # default configuration for services in *this* file

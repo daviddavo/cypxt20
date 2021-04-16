@@ -1,0 +1,40 @@
+{# templates/pxt/welcome.html.twig #}
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block header %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3"><b>{{ title }}</b></h1>
+            <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ cypxt_params.hashtag }}" target="_blank">#{{ cypxt_params.hashtag }}</a></h1>
+            <h5>{{ cypxt_params.date_long }}</h5>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="container mb-3 lead">
+        <p>
+            Este es un formulario para pedir que le recitemos un {{ cypxt_params.cop_sing }} a una persona especial para ti. Es muy importante que nos
+            digas <b>a quien</b> va dedicado y <b>quien eres</b> tú para que podamos decirle de qué va la cosa y no le pille por sorpresa.
+        </p>
+        <p class="font-weight-bold">
+            Las solicitudes de anónimos o pseudónimos no serán procesadas
+        </p>
+        <p>
+            El formulario se cerrará tras unas cuantas peticiones, así que, por favor, envía sólo una y piénsate bien a quién.
+        </p>
+        <p>
+            Llamaremos el <b>{{ cypxt_params.date_calls }}</b> de la tarde. Si podemos intentaremos llamar de nuevo si no lo han cogido.
+            </b>
+        <p>
+            Además, llamamos desde España, por lo que <b>no podemos hacer llamadas internacionales</b> *<i>snif</i>* :(
+        </p>
+        <div class="display-1">
+            ME VOY A CLASE.<br> RECUERDA. <br>AQUI VA LO DE ACEPTAR Y CONTINUAR
+        </div>
+    </div>
+    <div class="container">
+        {% include '/pxt/_tratdatos.html.twig' %}
+    </div>
+{% endblock %}
