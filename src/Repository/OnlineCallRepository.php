@@ -34,24 +34,6 @@ class OnlineCallRepository extends ServiceEntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function getHourCounts() {
-        $qb = $this->createQueryBuilder('h')
-            ->select('h.hours')
-        ;
-
-        $r = [];
-        foreach ($qb->getQuery()->execute() as $hours) {
-            foreach($hours["hours"] as $h) {
-                if (!array_key_exists($h, $r))
-                    $r[$h] = 0;
-
-                $r[$h]++;
-            }
-        }
-
-        return $r;
-    }
-
     // /**
     //  * @return OnlineCall[] Returns an array of OnlineCall objects
     //  */

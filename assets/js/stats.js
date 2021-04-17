@@ -62,40 +62,11 @@ function plotAges(ages) {
     Plotly.newPlot('ageplot', data, layout);
 }
 
-function plotHours(hours) {
-    let xarr = []; let yarr = [];
-    for (let h in hours) {
-        let hn = +h+1;
-        xarr.push(`${h}:00-${hn}:00`);
-        yarr.push(hours[h]);
-    }
-
-    let data = [{
-        x: xarr,
-        y: yarr,
-        type: 'bar',
-        marker: {
-            color: '#2cff5c'
-        }
-    }];
-
-    let layout = {...barlayout};
-    layout.title = 'Horas seleccionadas';
-    layout.xaxis = {
-        tickangle: -45
-    };
-
-    console.log(layout);
-
-    Plotly.newPlot('hourplot', data, layout);
-}
-
 $.ajax({
     url: "/api/stats",
     type: "GET",
     success: function(result) {
         plotAges(result["ages"]);
-        plotHours(result["hours"]);
         plotCnt(result["ages"], result["expected"]);
     },
     error: function(error) {

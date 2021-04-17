@@ -20,12 +20,12 @@ class OnlineCallType extends AbstractType
         $builder
             ->add('fromName', TextType::class, [
                 'label' => '¿De parte de quién es el ' .$options["singular"]. '?',
-                'help' => 'Tu nombre (o pseudónimo)',
+                'help' => 'Tu nombre',
                 'required' => true
             ])
             ->add('name', TextType::class, [
                 'label' => '¿Para quién es el '.$options["singular"].'?',
-                'help' => 'Nombre, pseudónimo o apodo de la persona a la que se lo dedicas (puedes poner «¡Yo mismo!» o «Mi menda» si es para ti)',
+                'help' => 'Nombre de la persona a la que se lo dedicas',
                 'required' => true,
                 ])
             ->add('age', IntegerType::class, [
@@ -37,28 +37,6 @@ class OnlineCallType extends AbstractType
                     'max' => 100
                 ]
             ])
-            /*->add('type', ChoiceType::class, [
-                'label' => "Tipo",
-                'help' => '¿Qué tipo de Poema te apetece escuchar?',
-                'choices' => [
-                    'Caballerías' => 0,
-                    'Romántico' => 1,
-                    'Infantil' => 2
-                ]
-            ])*/
-            /*->add('hours', ChoiceType::class, [
-                'label' => 'Horas',
-                'help' => '¿A qué horas te podemos llamar?',
-                'required' => true,
-                'expanded' => true,
-                'multiple' => true,
-                'choices' => [
-                    '18:00 - 19:00' => 18,
-                    '19:00 - 20:00' => 19,
-                    '20:00 - 21:00' => 20,
-                    '21:00 - 22:00' => 21
-                ]
-            ])*/
             ->add('number', TelType::class, [
                 'label' => 'Número fijo o móvil (preferiblemente fijo)',
                 'help' => '¿A qué número quieres que llamemos?',
@@ -66,7 +44,7 @@ class OnlineCallType extends AbstractType
             ])
             ->add('comment', TextAreaType::class, [
                 'label' => 'Comentarios',
-                'help' => '¿Algo más? ¿Hay más gente contigo? ¿Quieres que recitemos varios '.$options["plural"].' para varias personas de tu familia?',
+                'help' => '¿Algo más? ¿Habrá más gente con él/ella? ¿Quieres que contemos varios '.$options["plural"].' para varias personas?',
                 'required' => false,
             ])->add('submit', SubmitType::class, [
                 'label' => 'Enviar'

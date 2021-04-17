@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OnlineCallRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class OnlineCall
 {
@@ -27,11 +29,6 @@ class OnlineCall
     private $age;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
-     */
-    private $type;
-
-    /**
      * @ORM\Column(type="string", length=15)
      */
     private $number;
@@ -42,11 +39,6 @@ class OnlineCall
     private $comment;
 
     /**
-     * @ORM\Column(type="simple_array", nullable=true)
-     */
-    private $hours = [];
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $fromName;
@@ -55,6 +47,11 @@ class OnlineCall
      * @ORM\Column(type="string", length=64, nullable=true)
      */
     private $ip;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -85,18 +82,6 @@ class OnlineCall
         return $this;
     }
 
-    public function getType(): ?int
-    {
-        return $this->type;
-    }
-
-    public function setType(?int $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     public function getNumber(): ?string
     {
         return $this->number;
@@ -117,18 +102,6 @@ class OnlineCall
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
-
-        return $this;
-    }
-
-    public function getHours(): ?array
-    {
-        return $this->hours;
-    }
-
-    public function setHours(?array $hours): self
-    {
-        $this->hours = $hours;
 
         return $this;
     }
@@ -155,5 +128,24 @@ class OnlineCall
         $this->ip = $ip;
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function doStuffOnPrePersist() {
+        $this->createdAt = new DateTime();
     }
 }
