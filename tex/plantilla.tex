@@ -1,0 +1,112 @@
+\documentclass[14pt]{extarticle}
+\usepackage[a6paper, landscape]{geometry}
+\usepackage{layouts}
+\usepackage{calc}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{plex-otf}
+\usepackage[condensed]{roboto}
+\usepackage[T1]{fontenc}
+\usepackage{ifthen}
+\usepackage{tikz}
+
+\usetikzlibrary{calc}
+
+\title{MEL Card}
+\author{David Davó Laviña}
+\date{April 2021}
+
+\newcommand{\VAR}[1]{#1}
+\newcommand{\BLOCK}[1]{}
+\newif\ifbackground
+\backgroundtrue
+
+\newlength{\fromlength}
+\newlength{\tolength}
+
+% \setsansfont{Tex Gyre Heros}
+% \setsansfont{Roboto Condensed}
+
+\begin{document}
+
+\pagestyle{empty}
+
+\BLOCK{ for x in table }
+    \settowidth{\fromlength}{\textsf{\MakeUppercase{\Huge\bfseries \VAR{x.from}}}}
+    \settowidth{\tolength}{\textsf{\MakeUppercase{\Huge\bfseries \VAR{x.name}, \VAR{x.age}}}}
+
+\begin{tikzpicture}[remember picture, overlay, label distance=1mm]
+    \pgfmathsetmacro{\frh}{13}
+    \pgfmathsetmacro{\nlh}{6}
+    \pgfmathsetmacro{\lmargin}{10}
+    \pgfmathsetmacro{\commentwidth}{148-\lmargin*2}
+    \pgfmathsetmacro{\fromwidth}{0.5*\commentwidth}
+    \pgfmathsetmacro{\towidth}{\commentwidth}
+
+\ifbackground
+    \draw[blue,line width=1pt] ($(current page.north west)+(0,-\frh mm)$) -- ($(current page.north east)+(0,-\frh mm)$);
+    \foreach \i in {1,2,...,14} {
+        \draw[lightgray] ($(current page.north west)-(0,\i*\nlh mm)-(0,\frh mm)$) -- ($(current page.north east)-(0,\i*\nlh mm)-(0,\frh mm)$);
+    }
+\fi
+    
+    \draw node[left, right] at ($(current page.north west)-(-\lmargin mm, .5*\nlh mm+\frh mm)$) {
+        \mdseries Para:
+    };
+
+    \ifthenelse{\lengthtest{\tolength < \towidth mm}}
+    {
+        \node[anchor=base west, text width=\towidth mm] at ($(current page.north west)-(-\lmargin mm, 3*\nlh mm+\frh mm)$) {
+            \textsf{\MakeUppercase{\Huge\bfseries \VAR{x.name}, \VAR{x.age}}}
+        };
+    }{
+        \node[anchor=base west, text width=\towidth mm] at ($(current page.north west)-(-\lmargin mm, 2*\nlh mm+\frh mm)$) {
+            \textsf{\MakeUppercase{\Large\bfseries \VAR{x.name}, \VAR{x.age}}}
+        };
+    }
+    
+    \draw node[left, left] at ($(current page.north east)-(\lmargin mm, 0.5*\frh mm)$) {
+        \VAR{x.id}
+        % \the\fromlength
+    };
+    
+    \ifthenelse{\lengthtest{\fromlength < \fromwidth mm}}
+    {
+        \draw node[anchor=base west, text width=\fromwidth mm] (FROM) at ($(current page.north west)-(-\lmargin mm, 6*\nlh mm+\frh mm)$) {
+            \textsf{\MakeUppercase{\Huge\bfseries \VAR{x.from}}}
+        };
+    }{
+        \draw node[anchor=base west, text width=\fromwidth mm] (FROM) at ($(current page.north west)-(-\lmargin mm, 5*\nlh mm+\frh mm)$) {
+            \textsf{\MakeUppercase{\Large\bfseries \VAR{x.from}}}
+        };
+    }
+
+    \draw node[left, right] at ($(current page.north west)-(-\lmargin mm, 3.5*\nlh mm+\frh mm)$) {
+        \mdseries De:
+    };
+    
+    \draw node[anchor=base east] (NUMBER) at ($(current page.north east)-(\lmargin mm, 6*\nlh mm+\frh mm)$) {
+        \textsf{\MakeUppercase{\Huge\bfseries \VAR{x.number}}}
+    };
+    
+    \draw node[left, right] at ($(NUMBER.north west |- current page.north)-(0, 3.5*\nlh mm+\frh mm)$) {
+        \mdseries Teléfono:
+    };
+    
+    \draw node[left, right] at ($(current page.north west)-(-\lmargin mm, 6.5*\nlh mm+\frh mm)$) {
+        \mdseries Comentarios:
+    };
+    
+    % 148 mm is the width of dina6
+    \draw node[anchor=base west, text width=\commentwidth mm] at ($(current page.north west)-(-\lmargin mm, 8*\nlh mm+\frh mm)$) {
+        % \fontfamily{Roboto Bold}\selectfont
+        \textsf{%
+            \VAR{x.comment}
+        }
+    };
+\end{tikzpicture}
+\newpage
+%------------------------------------------------------------------------------
+\BLOCK{ endfor }
+
+\end{document}
