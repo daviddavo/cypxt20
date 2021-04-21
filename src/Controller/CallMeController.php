@@ -25,7 +25,7 @@ class CallMeController extends AbstractController
         $cnt = $repo->getTotalCnt();
 
         // return false;
-        return $cnt <= $this->getParameter('app.maxapplications');
+        return $cnt < $this->getParameter('app.maxapplications');
     }
 
     public function closed($params, $remaining=true) {
