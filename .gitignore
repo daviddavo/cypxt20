@@ -1,6 +1,6 @@
-### > .idea
+### IDES
 .idea
-
+.vscode
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -24,4 +24,8 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
-src/Migrations
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###

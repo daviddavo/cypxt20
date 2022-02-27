@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Number;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Number|null find($id, $lockMode = null, $lockVersion = null)

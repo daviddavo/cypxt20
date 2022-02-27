@@ -16,8 +16,8 @@ parameters:
         cop_phrase_question: contemos un cuento
     app.pxt:
         title: Poemas por Teléfono
-        date_long: Lunes, 22 de Marzo de 2021
-        date_calls: Lunes, 22 de Marzo de 7 a 10
+        date_long: Lunes, 21 de Marzo de 2022
+        date_calls: Lunes, 21 de Marzo de 7 a 10
         hashtag: poemasxtelefono
         cop_sing: poema
         cop_plural: poemas
