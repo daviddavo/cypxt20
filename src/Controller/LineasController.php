@@ -11,12 +11,16 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
+use Doctrine\Persistence\ManagerRegistry;
+
 class LineasController extends AbstractController {
+    public function __construct(private ManagerRegistry $doctrine) {}
+
     /**
      * @Route("/lineas", name="lineas")
      */
     public function main(Request $request) {
-        $repo = $this->getDoctrine()->getRepository(Line::class);
+        $repo = $this->doctrine->getRepository(Line::class);
         $subdomain = explode('.', $request->getHost())[0];
 
         return $this->render('pxt/lineas.html.twig', [
@@ -29,7 +33,7 @@ class LineasController extends AbstractController {
      * @Route("/lineas/{id}", name="linea_id", methods={"GET"})
      */
     public function mainLinea(int $id) {
-        $repo = $this->getDoctrine()->getRepository(Line::class);
+        $repo = $this->doctrine->getRepository(Line::class);
         $prev = null;
         $linea = null;
         $next = null;
@@ -63,7 +67,7 @@ class LineasController extends AbstractController {
      * @Route("/api/lineas", name="api_lineas", methods={"GET"})
      */
     public function api() {
-        $repo = $this->getDoctrine()->getRepository(Line::class);
+        $repo = $this->doctrine->getRepository(Line::class);
         $r = [];
         foreach ($repo->findAll() as $item) {
             $r[$item->getId()] = [
@@ -82,7 +86,7 @@ class LineasController extends AbstractController {
      * @Route("/api/lineas/toggle/{id}", name="api_linea_toggle", methods={"GET", "PUT"})
      */
     public function api_linea_toggle(int $id) {
-        $repo = $this->getDoctrine()->getRepository(Line::class);
+        $repo = $this->doctrine->getRepository(Line::class);
         $l = $repo->find($id);
         if (is_null($l)) {
             throw $this->createNotFoundException("Linea no encontrada");
@@ -90,7 +94,7 @@ class LineasController extends AbstractController {
 
         $l->toggleStatus();
 
-        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $this->doctrine->getManager();
         $entityManager->persist($l);
         $entityManager->flush();
 

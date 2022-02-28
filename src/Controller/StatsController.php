@@ -8,14 +8,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Doctrine\Persistence\ManagerRegistry;
+
 class StatsController extends AbstractController
 {
+    public function __construct(private ManagerRegistry $doctrine) {}
+
     /**
      * @Route("/stats", name="stats")
      */
     public function index(Request $request)
     {
-        $repo = $this->getDoctrine()->getRepository(OnlineCall::class);
+        $repo = $this->doctrine->getRepository(OnlineCall::class);
         $subdomain = explode('.', $request->getHost())[0];
         $configparams = $this->getParameter($subdomain=='cxt'?'app.cxt':'app.pxt');
 
@@ -28,7 +32,7 @@ class StatsController extends AbstractController
 
     public function api()
     {
-        $repo = $this->getDoctrine()->getRepository(OnlineCall::class);
+        $repo = $this->doctrine->getRepository(OnlineCall::class);
         return new JSONResponse([
             "ages" => $repo->getAgeCounts(),
             "expected" => $this->getParameter('app.maxapplications')

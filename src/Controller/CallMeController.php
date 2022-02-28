@@ -13,15 +13,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Doctrine\Persistence\ManagerRegistry;
+
 class CallMeController extends AbstractController
 {
+    public function __construct(private ManagerRegistry $doctrine) {}
+
     private function getParamsFromHostname(Request $request) {
         $subdomain = explode('.', $request->getHost())[0];
         return $this->getParameter($subdomain=='cxt'?'app.cxt':'app.pxt');
     }
 
     private function isOpen() : bool {
-        $repo = $this->getDoctrine()->getRepository(OnlineCall::class);
+        $repo = $this->doctrine->getRepository(OnlineCall::class);
         $cnt = $repo->getTotalCnt();
 
         // return false;
@@ -30,7 +34,7 @@ class CallMeController extends AbstractController
 
     public function closed($params, $remaining=true) {
 
-        $repolines = $this->getDoctrine()->getRepository(Line::class);
+        $repolines = $this->doctrine->getRepository(Line::class);
         $phonenumbers = $repolines->getPhoneNumbers();
 
         return $this->render('pxt/closed.html.twig', [
@@ -83,7 +87,7 @@ class CallMeController extends AbstractController
         ]);
 
         $form->handleRequest($request);
-        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $this->doctrine->getManager();
 
         // Form submission
         if ($form->isSubmitted()) {
@@ -109,7 +113,7 @@ class CallMeController extends AbstractController
         }
 
         // Getting total cnt and number of submissions
-        $repo = $this->getDoctrine()->getRepository(OnlineCall::class);
+        $repo = $this->doctrine->getRepository(OnlineCall::class);
         $maxapplications = $this->getParameter('app.maxapplications_perperson');
         $remaining = $maxapplications - $repo->countByIp($request->getClientIp());
 
