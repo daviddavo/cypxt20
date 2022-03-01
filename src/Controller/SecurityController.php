@@ -21,10 +21,21 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        // where to redirect to
+        $target_path = $request->headers->get('referer');
+        if (empty($target_path))
+        {
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $target_path = $this->generateUrl('admin');
+            } else if ($this->isGranted('ROLE_CENTRALITA')) {
+                $target_path = $this->generateUrl('lineas');
+            }
+        }
+
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
-            'referer'       => $request->headers->get('referer'),
+            'target_path'   => $target_path,
         ]);
     }
 

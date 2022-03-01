@@ -11,7 +11,7 @@
     <div class="col login-form bg-light mt-4 p-4">
         <form method="post" class="g-3">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <input type="hidden" name="_target_path" value="{{ referer }}">
+            <input type="hidden" name="_target_path" value="{{ target_path }}">
             <h1 class="form-group h3 mb-3 font-weight-normal">Iniciar sesión</h1>
             <div class="form-group">
                 <label for="inputUsername">Usuario</label>
