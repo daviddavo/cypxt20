@@ -20,32 +20,41 @@
 {% endblock %}
 {% block body %}
 <div class="container">
-    <p>
-        Aquí encontrarás las líneas disponibles. Si está en <b style="color: limegreen">verde</b>, puedes pasarles la llamada. Si está en <b style="color:red">rojo</b>, están ocupados.
-    </p>
-    <table id="wrapper-lineas" class="table table-dark text-center">
-        <thead><tr>
-            <th>id</th>
-            <th class="d-none d-md-table-cell">Teléfono</th>
-            <th>Ubicación</th>
-            <th class="d-none d-lg-table-cell">Estado</th>
-            <th>Tiempo abierta/cerrada</th>
-        </tr></thead>
-        <tbody>
-        {% for linea in lineas %}
-            <tr class="linea"
-                data-status="{{ linea.status }}"
-                data-id="{{ linea.id }}"
-                data-last_open="{{ linea.lastOpen|date("c") }}"
-                data-last_close="{{ linea.lastClose|date("c") }}">
-                <td>{{ linea.id }}</td>
-                <td class="d-none d-md-table-cell">{{ linea.phoneNumber }}</td>
-                <td>{{ linea.description }}</td>
-                <td class="linea-status d-none d-lg-table-cell">{{ linea.status }}</td>
-                <td class="linea-time"></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% if is_granted('ROLE_CENTRALITA') -%}
+        <p>
+            Hola, {{ app.user.username }}. Aquí encontrarás las líneas disponibles. Si está en <b style="color: limegreen">verde</b>, puedes pasarles la llamada. Si está en <b style="color:red">rojo</b>, están ocupados.
+        </p>
+        <table id="wrapper-lineas" class="table table-dark text-center">
+            <thead><tr>
+                <th>id</th>
+                <th class="d-none d-md-table-cell">Teléfono</th>
+                <th>Ubicación</th>
+                <th class="d-none d-lg-table-cell">Estado</th>
+                <th>Tiempo abierta/cerrada</th>
+            </tr></thead>
+            <tbody>
+            {% for linea in lineas %}
+                <tr class="linea"
+                    data-status="{{ linea.status }}"
+                    data-id="{{ linea.id }}"
+                    data-last_open="{{ linea.lastOpen|date("c") }}"
+                    data-last_close="{{ linea.lastClose|date("c") }}">
+                    <td>{{ linea.id }}</td>
+                    <td class="d-none d-md-table-cell">{{ linea.phoneNumber }}</td>
+                    <td>{{ linea.description }}</td>
+                    <td class="linea-status d-none d-lg-table-cell">{{ linea.status }}</td>
+                    <td class="linea-time"></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Lo sentimos, esta información sólo está disponible para los organizadores del evento</p>
+    {% endif %}
+    {% if app.user %}
+        <a href="{{ path('logout') }}">Cerrar sesión</a>
+    {% else %}
+        <a href="{{ path('login') }}">Iniciar sesión</a>
+    {% endif %}
 </div>
 {% endblock %}

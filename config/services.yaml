@@ -45,6 +45,12 @@ services:
     # please note that last definitions always *replace* previous ones
     Twig\Extension\Intl: ~
 
+    App\EventListener\LogoutEventListener:
+        tags:
+            - name: kernel.event_listener
+              event: 'Symfony\Component\Security\Http\Event\LogoutEvent'
+              method: onLogout
+
     kernel.listener.prefix:
         class: App\EventListener\TablePrefixEventListener
         tags:
