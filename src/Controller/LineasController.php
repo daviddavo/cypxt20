@@ -24,7 +24,8 @@ class LineasController extends AbstractController {
         $subdomain = explode('.', $request->getHost())[0];
 
         return $this->render('pxt/lineas.html.twig', [
-            'lineas' => $repo->findAll(),
+            'lineas'  => $repo->findAll(),
+            'qr_link' => 'https://ddavo.me',
         ]);
     }
 

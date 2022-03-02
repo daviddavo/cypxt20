@@ -45,9 +45,27 @@
         <p>Lo sentimos, esta información sólo está disponible para los organizadores del evento</p>
     {% endif %}
     {% if app.user %}
-        <a href="{{ path('logout') }}">Cerrar sesión</a>
+        <a href="{{ path('logout') }}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
     {% else %}
-        <a href="{{ path('login') }}">Iniciar sesión</a>
+        <a href="{{ path('login') }}"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
     {% endif %}
 </div>
+{% if is_granted('ROLE_CENTRALITA') %}
+    <div id="qr" class="card card-hover-shadow" style="position: fixed; right: 20px; bottom: 20px;">
+        <div class="card-header">
+            <a href="#collapseQR" id="qrminimizeButton" class="clickable float-right link-dark" aria-controls="collapseQR" aria-label="Minimizar" data-toggle="collapse" aria-expanded="true">
+                <i class="fas fa-window-minimize" id="qr-minimize-icon"></i>
+                <i class="fas fa-window-maximize" id="qr-maximize-icon"></i>
+            </a>
+            <h5 class="card-title mb-0">Acceso terminales</h5>
+        </div>
+        <div id="collapseQR" class="collapse show">
+            <img class="card-img" src="{{ qr_code_data_uri(qr_link) }}" />
+            <div class="card-body">
+                <a href="#" id="qr-copy-link" class="btn btn-primary" data-link="{{ qr_link }}"><i class="fas fa-clone"></i> Copiar enlace</a>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}

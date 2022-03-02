@@ -79,3 +79,13 @@ tr.linea {
 button.close {
   font-size: 3em;
 }
+
+#qrminimizeButton {
+  &.collapsed > #qr-minimize-icon {
+    display: none;
+  }
+
+  &:not(.collapsed) > #qr-maximize-icon {
+    display: none;
+  }
+}

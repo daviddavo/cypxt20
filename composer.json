@@ -10,6 +10,7 @@
         "doctrine/doctrine-migrations-bundle": "^2",
         "doctrine/orm": "^2",
         "easycorp/easyadmin-bundle": "^4.0",
+        "endroid/qr-code-bundle": "^4.0",
         "sensio/framework-extra-bundle": "^6.2",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.4.*",
@@ -58,7 +59,8 @@
             "php": "8.1"
         },
         "allow-plugins": {
-            "symfony/flex": true
+            "symfony/flex": true,
+            "endroid/installer": true
         }
     },
     "autoload": {
