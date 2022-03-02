@@ -25,7 +25,6 @@ class LineasController extends AbstractController {
 
         return $this->render('pxt/lineas.html.twig', [
             'lineas' => $repo->findAll(),
-            'cypxt_params' => $this->getParameter($subdomain=='cxt'?'app.cxt':'app.pxt')
         ]);
     }
 

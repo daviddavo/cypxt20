@@ -28,17 +28,15 @@ class CallMeController extends AbstractController
         $repo = $this->doctrine->getRepository(OnlineCall::class);
         $cnt = $repo->getTotalCnt();
 
-        // return false;
         return $cnt < $this->getParameter('app.maxapplications');
     }
 
-    public function closed($params, $remaining=true) {
+    public function closed($remaining=true) {
 
         $repolines = $this->doctrine->getRepository(Line::class);
         $phonenumbers = $repolines->getPhoneNumbers();
 
         return $this->render('pxt/closed.html.twig', [
-            'cypxt_params' => $params,
             'phonenumbers' => $phonenumbers,
             'remaining' => $remaining
         ]);
@@ -54,18 +52,15 @@ class CallMeController extends AbstractController
 
         if ($this->isOpen()) {
             return $this->render('pxt/welcome.html.twig', [
-                'title' => $params['title'],
                 'maxapp' => $this->getParameter('app.maxapplications_perperson'),
-                'cypxt_params' => $params
             ]);
         } else {
-            return $this->closed($params);
+            return $this->closed();
         }
 
         return $this->render('pxt/welcome.html.twig', [
             'title' => $params['title'],
             'maxapp' => $this->getParameter('app.maxapplications_perperson'),
-            'cypxt_params' => $params,
             'open' => $this->isOpen(),
             'phonenumbers' => $phonenumbers
         ]);
@@ -120,12 +115,11 @@ class CallMeController extends AbstractController
         if ($remaining == 1) {
            $this->addFlash('warning', "Esta es tu ultima petición, así que ¡piensátelo bien!");
         } else if ($remaining <= 0) {
-            return $this->closed($params, false);
+            return $this->closed(false);
         }
 
         return $this->render('pxt/index.html.twig', [
             'title' => $params['title'],
-            'cypxt_params' => $params,
             'form' => $form->createView()]);
     }
 

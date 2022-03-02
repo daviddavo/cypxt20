@@ -1,15 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-    {{ cypxt_params.title }}
+    {{ cypxt.title }}
 {% endblock %}
 {% block header %}
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-3"><b>{{ cypxt_params.title }}</b></h1>
-            <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ cypxt_params.hashtag }}" target="_blank">#{{ cypxt_params.hashtag }}</a></h1>
-            <h5>{{ cypxt_params.date_long }}</h5>
-        </div>
-    </div>
+    {{ component('jumbotron') }}
 {% endblock %}
 {% block body %}
     <div class="container">
@@ -21,7 +15,7 @@
             <h1>Máximo de solicitudes alcanzado</h1>
             <p>Lo sentimos, has alcanzado el máximo de solicitudes permitido :(</p>
         {% endif %}
-        <p>Aun así, puedes llamarnos el {{ cypxt_params.date_long }} a los siguientes teléfonos:</p>
+        <p>Aun así, puedes llamarnos el {{ cypxt.date_long }} a los siguientes teléfonos:</p>
         <ul class="fa-ul">
             {% for phonenumber in phonenumbers %}
                 <li><span class="fa-li"><i class="fas fa-phone"></i></span><a href="tel:{{ phonenumber }}">{{ phonenumber }}</a></li>

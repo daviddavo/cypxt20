@@ -25,7 +25,6 @@ class StatsController extends AbstractController
 
         return $this->render('stats/index.html.twig', [
             'title' => 'Estadísticas',
-            'cypxt_params' => $configparams,
             'ageCounts' => $repo->getAgeCounts()
         ]);
     }

@@ -4,13 +4,7 @@
     {{ title }}
 {% endblock %}
 {% block header %}
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-3"><b>{{ title }}</b></h1>
-            <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ cypxt_params.hashtag }}" target="_blank">#{{ cypxt_params.hashtag }}</a></h1>
-            <h5>{{ cypxt_params.date_long }}</h5>
-        </div>
-    </div>
+    {{ component('jumbotron') }}
 {% endblock %}
 {% block body %}
 <div class="container mb-3">
