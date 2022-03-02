@@ -31,7 +31,7 @@ class LineasController extends AbstractController {
     /**
      * @Route("/lineas/{id}", name="linea_id", methods={"GET"})
      */
-    public function mainLinea(int $id) {
+    public function mainLinea(Request $request, int $id) {
         $repo = $this->doctrine->getRepository(Line::class);
         $prev = null;
         $linea = null;
@@ -58,7 +58,8 @@ class LineasController extends AbstractController {
         return $this->render('pxt/linea.html.twig', [
             'linea' => $linea,
             'prev' => $prev,
-            'next' => $next
+            'next' => $next,
+            'hidden' => $request->query->has('hideUsage')?'hidden':'',
         ]);
     }
 
