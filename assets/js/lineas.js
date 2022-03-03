@@ -78,6 +78,16 @@ $('tr.linea').click(function() {
    window.location = `/lineas/${$(this).data('id')}`;
 });
 
+$('#qr-copy-button').tooltip({trigger: 'manual', title: 'Enlace copiado', placement: 'right'});
+$('#qr-copy-button').on('click', function(e) {
+    navigator.clipboard.writeText($(e.target).data('link'));
+
+    $(e.target).tooltip('show');
+
+    setTimeout(function() { console.log("Hiding tooltip"); $(e.target).tooltip('hide'); }, 2000);
+});
+
+
 $().ready(function () {
     const params = new URLSearchParams(window.location.search);
     console.log(params);
