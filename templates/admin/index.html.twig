@@ -1,0 +1,9 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block main %}
+    {#<h2>Total inscritos: <span id="totalcnt"></span></h2>#}
+    <div class="row">
+        <div id="cntplot" class="col-lg-6"></div>
+        <div id="ageplot" class="col-lg-6"></div>
+    </div>
+    {{ encore_entry_script_tags('stats') }}
+{% endblock %}

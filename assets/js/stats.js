@@ -1,9 +1,14 @@
 import Plotly from 'plotly.js-dist';
 
-const barlayout = {
+const commonLayout = {
     font:{
         family: 'Raleway, sans-serif'
     },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)'
+};
+
+const barlayout = {
     showlegend: false,
     xaxis: {
         tickangle: -45
@@ -12,7 +17,8 @@ const barlayout = {
         zeroline: false,
         gridwidth: 2
     },
-    bargap :0.05
+    bargap :0.05,
+    ...commonLayout
 };
 
 function plotCnt(ages, expected) {
@@ -29,13 +35,9 @@ function plotCnt(ages, expected) {
         gauge: {axis: {visible: true, range: [0, expected]}}
     }];
 
-    let layout = [{
-       font:{
-           family: 'Raleway, sans-serif'
-       }
-    }];
-
     $('#totalcnt').text(sum);
+
+    let layout = {...commonLayout};
     Plotly.newPlot('cntplot', data, layout);
 }
 
@@ -56,8 +58,10 @@ function plotAges(ages) {
         }
     }];
 
-    let layout = {...barlayout};
-    layout.title = 'Edad de los participantes';
+    let layout = {
+        title: 'Edad de los participantes',
+        ...barlayout
+    };
 
     Plotly.newPlot('ageplot', data, layout);
 }
