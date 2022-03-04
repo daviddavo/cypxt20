@@ -6,6 +6,7 @@
 parameters:
     app.maxapplications: 70
     app.maxapplications_perperson: 3
+    app.templatex_url: '%env(TEMPLATEX_URL)%'
     app.cxt:
         title: Cuentos por Teléfono
         date_long: Viernes, 23 de Abril de 2021
