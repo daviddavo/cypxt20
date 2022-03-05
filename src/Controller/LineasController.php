@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,9 +24,11 @@ class LineasController extends AbstractController {
         $repo = $this->doctrine->getRepository(Line::class);
         $subdomain = explode('.', $request->getHost())[0];
 
+        $lineas = $repo->findAll();
+
         return $this->render('pxt/lineas.html.twig', [
-            'lineas'  => $repo->findAll(),
-            'qr_link' => 'https://ddavo.me',
+            'lineas'  => $lineas,
+            'qr_link' => $this->generateUrl('linea_id', ['id' => $lineas[0]->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
         ]);
     }
 
