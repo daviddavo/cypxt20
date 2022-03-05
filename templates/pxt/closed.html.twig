@@ -31,6 +31,14 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
+            confetti({
+                disableForReducedMotion: true,
+                angle: 90,
+                particleCount: 50,
+                spread: 80,
+                origin: { x: 0.50, y: 0.95 }
+            })
+
             if (window.innerWidth < 768) {
                 return;
             }
