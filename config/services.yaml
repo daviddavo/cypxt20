@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    app.maxapplications: 70
+    app.maxapplications: 100
     app.maxapplications_perperson: 3
     app.templatex_url: '%env(TEMPLATEX_URL)%'
     app.cxt:
@@ -12,6 +12,7 @@ parameters:
         date_long: Viernes, 23 de Abril de 2021
         date_calls: Viernes, 23 de Abril de 6 a 10
         hashtag: cuentosxtelefono
+        poster: build/images/cxt_cartel.jpg
         cop_sing: cuento
         cop_plural: cuentos
         cop_phrase_question: contemos un cuento
@@ -20,6 +21,7 @@ parameters:
         date_long: Lunes, 21 de Marzo de 2022
         date_calls: Lunes, 21 de Marzo de 7 a 10
         hashtag: poemasxtelefono
+        poster: build/images/pxt_cartel.jpg
         cop_sing: poema
         cop_plural: poemas
         cop_phrase_question: recitemos un poema
