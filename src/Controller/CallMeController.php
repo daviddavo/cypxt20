@@ -4,11 +4,14 @@
 namespace App\Controller;
 use App\Entity\Line;
 use App\Entity\OnlineCall;
+use App\Service\ParamsGenerator;
 use App\Form\OnlineCallType;
 
 use DateTime;
 
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,14 +20,18 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class CallMeController extends AbstractController
 {
-    public function __construct(private ManagerRegistry $doctrine) {}
-
-    private function getParamsFromHostname(Request $request) {
-        $subdomain = explode('.', $request->getHost())[0];
-        return $this->getParameter($subdomain=='cxt'?'app.cxt':'app.pxt');
-    }
+    public function __construct(private ManagerRegistry $doctrine, private ParamsGenerator $params, private RequestStack $requestStack, private Security $security) {}
 
     private function isOpen() : bool {
+        $query = $this->requestStack->getCurrentRequest()->query;
+        if ($query->has('forceClose')) {
+            return false;
+        }
+
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+
         $repo = $this->doctrine->getRepository(OnlineCall::class);
         $cnt = $repo->getTotalCnt();
 
@@ -47,22 +54,12 @@ class CallMeController extends AbstractController
      * @return Response
      */
     public function main(Request $request) {
-        $params = $this->getParamsFromHostname($request);
-
-
-        if ($this->isOpen()) {
-            return $this->render('pxt/welcome.html.twig', [
-                'maxapp' => $this->getParameter('app.maxapplications_perperson'),
-            ]);
-        } else {
+        if (!$this->isOpen()) {
             return $this->closed();
         }
 
         return $this->render('pxt/welcome.html.twig', [
-            'title' => $params['title'],
             'maxapp' => $this->getParameter('app.maxapplications_perperson'),
-            'open' => $this->isOpen(),
-            'phonenumbers' => $phonenumbers
         ]);
     }
 
@@ -71,14 +68,12 @@ class CallMeController extends AbstractController
      * @return Response
      */
     public function form(Request $request) {
-        $params = $this->getParamsFromHostname($request);
-        
         $call = new OnlineCall();
 
         // Creating the form
         $form = $this->createForm(OnlineCallType::class, $call, [
-            'singular' => $params['cop_sing'],
-            'plural' => $params['cop_plural']
+            'singular' => $this->params->cop_sing(),
+            'plural' => $this->params->cop_plural(),
         ]);
 
         $form->handleRequest($request);
@@ -95,7 +90,7 @@ class CallMeController extends AbstractController
                 $xdarr = [
                     "Oído cocina", "Recibido", "Marchando"
                 ];
-                $this->addFlash('success', "¡{$xdarr[array_rand($xdarr)]}! {$data->getFromName()}, ¿quieres que le " . $params['cop_phrase_question'] . " a alguien más?");
+                $this->addFlash('success', "¡{$xdarr[array_rand($xdarr)]}! {$data->getFromName()}, ¿quieres que le " . $this->params->cop_phrase_question() . " a alguien más?");
             } else {
                 $this->addFlash('error', 'Lo sentimos, ha habido un error al entregar el formulario...');
             }
@@ -119,7 +114,7 @@ class CallMeController extends AbstractController
         }
 
         return $this->render('pxt/index.html.twig', [
-            'title' => $params['title'],
+            'title' => $this->params->title(),
             'form' => $form->createView()]);
     }
 
