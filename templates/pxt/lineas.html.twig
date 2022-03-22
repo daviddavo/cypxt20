@@ -17,7 +17,7 @@
         <p>
             Hola, {{ app.user.username }}. Aquí encontrarás las líneas disponibles. Si está en <b style="color: limegreen">verde</b>, puedes pasarles la llamada. Si está en <b style="color:red">rojo</b>, están ocupados.
         </p>
-        <table id="wrapper-lineas" class="table table-dark text-center">
+        <table id="wrapper-lineas" class="table table-dark text-center" data-update-interval="1">
             <thead><tr>
                 <th>id</th>
                 <th class="d-none d-md-table-cell">Teléfono</th>

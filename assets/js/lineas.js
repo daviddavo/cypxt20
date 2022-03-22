@@ -47,9 +47,20 @@ function updateData(callback) {
             data[id].last_close =  (Date.parse(data[id].last_close) + Date.now() - d);
             $(this).data(data[id]);
             $(this).attr("data-status", data[id].status);
-            updateTime(callback);
         });
+
+        updateTime(callback);
     });
+}
+
+function updateDataInterval() {
+    let updateInterval = $("#wrapper-lineas").data("update-interval") * 1000;
+
+    if (updateInterval < 500) {
+        throw "Update interval can't be less than 500 ms";
+    }
+    
+    setTimeout(updateData, updateInterval, updateDataInterval)
 }
 
 function hideUsage() {
@@ -98,11 +109,9 @@ $().ready(function () {
     updateTime();
     setInterval(updateTime, 1000);
 
-    updateData();
-
-    let updateInterval = 5000;
     if (params.has('updateInterval')) {
-        updateInterval=params.get("updateInterval");
+        $("#wrapper-lineas").data("update-interval", params.get("updateInterval"));
     }
-    setInterval(updateData, updateInterval);
+
+    updateData(updateDataInterval);
 });
