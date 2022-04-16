@@ -27,6 +27,7 @@ class LineCrudController extends AbstractCrudController
             ->setFormTypeOptions([
                 'choices' => ['Abierto'=>'idle', 'Cerrado'=>'busy'],
             ]);
+        yield TextField::new('description');
         yield DateTimeField::new('last_open');
         yield DateTimeField::new('last_close');
         yield TextField::new('phone_number');
