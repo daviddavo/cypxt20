@@ -9,13 +9,14 @@ parameters:
     app.templatex_url: '%env(TEMPLATEX_URL)%'
     app.cxt:
         title: Cuentos por Teléfono
-        date_long: Viernes, 23 de Abril de 2021
-        date_calls: Viernes, 23 de Abril de 6 a 10
+        date_long: Viernes, 22 de Abril de 2022
+        date_calls: Viernes, 23 de Abril de 7 a 10
         hashtag: cuentosxtelefono
-        poster: build/images/cxt_cartel.jpg
+        poster: build/images/cxt_cartel.png
         cop_sing: cuento
         cop_plural: cuentos
         cop_phrase_question: contemos un cuento
+        cop_read: contemos un cuento
     app.pxt:
         title: Poemas por Teléfono
         date_long: Lunes, 21 de Marzo de 2022
@@ -25,6 +26,7 @@ parameters:
         cop_sing: poema
         cop_plural: poemas
         cop_phrase_question: recitemos un poema
+        cop_read: recitemos un poema
 
 services:
     # default configuration for services in *this* file
@@ -47,6 +49,12 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     Twig\Extension\Intl: ~
+
+    App\EventListener\LoginEventListener:
+        tags:
+            - name: kernel.event_listener
+              event: 'Symfony\Component\Security\Http\Event\LoginFailureEvent'
+              method: onLoginFailure
 
     App\EventListener\LogoutEventListener:
         tags:
