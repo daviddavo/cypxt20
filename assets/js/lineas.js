@@ -56,6 +56,8 @@ function updateData(callback) {
 function updateDataInterval() {
     let updateInterval = $("#wrapper-lineas").data("update-interval") * 1000;
 
+    if (isNaN(updateInterval)) return;
+
     if (updateInterval < 500) {
         throw "Update interval can't be less than 500 ms";
     }
