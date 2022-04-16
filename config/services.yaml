@@ -4,13 +4,13 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    app.maxapplications: 100
+    app.maxapplications: 70
     app.maxapplications_perperson: 3
     app.templatex_url: '%env(TEMPLATEX_URL)%'
     app.cxt:
         title: Cuentos por Teléfono
         date_long: Viernes, 22 de Abril de 2022
-        date_calls: Viernes, 23 de Abril de 7 a 10
+        date_calls: Viernes, 22 de Abril de 7 a 10
         hashtag: cuentosxtelefono
         poster: build/images/cxt_cartel.png
         cop_sing: cuento
