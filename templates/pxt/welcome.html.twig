@@ -29,10 +29,12 @@
             <b>Sin embargo</b>, sí que las recibimos a los teléfonos que aparecen en el cartel, por lo que... ¡puedes llamarnos si quieres!
         </p>
         <a href="{{ url('form') }}" class="btn btn-primary" role="button">Continuar</a>
-        {% if cypxt.poster %}
-            <img class="img-fluid max-vh-90 mt-3" src="{{ asset(cypxt.poster) }}" alt="Cartel oficial">
-        {% endif %}
     </div>
+    {% if cypxt.poster %}
+        <div class="container">
+            <img class="img-fluid max-vh-90 mt-3" src="{{ asset(cypxt.poster) }}" alt="Cartel oficial">
+        </div>
+    {% endif %}
     <div class="container mb-3">
         {% include '/pxt/_tratdatos.html.twig' %}
     </div>
