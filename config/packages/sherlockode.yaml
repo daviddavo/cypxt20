@@ -1,0 +1,23 @@
+sherlockode_configuration:
+    entity_class:
+        parameter: App\Entity\Parameter
+    parameters:
+      force_close:
+        label: Forzar cierre del formulario
+        type: checkbox
+      max_applications:
+        label: Máximo inscripciones
+        type: simple
+        options:
+          subtype: Symfony\Component\Form\Extension\Core\Type\IntegerType
+      max_per_user:
+        label: Máximo de peticiones por usuario
+        type: simple
+        options:
+          subtype: Symfony\Component\Form\Extension\Core\Type\IntegerType
+      cxt_date:
+        label: Fecha Cuentos por Teléfono
+        type: datetime
+      pxt_date:
+        label: Fecha Poemas por Teléfono
+        type: datetime

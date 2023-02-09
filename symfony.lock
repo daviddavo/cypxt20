@@ -260,6 +260,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "sherlockode/configuration-bundle": {
+        "version": "v0.5.1"
+    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {

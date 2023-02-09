@@ -45,3 +45,8 @@ bin/console doctrine:migrations:migrate
 
 Ya sólo te queda meter las líneas a las tablas. De momento esto sólo es posible
 conectándose a la BBDD y ejecutando los SQL (o usando algún tipo de IDE).
+
+### Documentación por hacer:
+- [ ] Como añadir un usuario desde la terminal
+- [ ] Como añadir un usuario desde el panel de control
+- [ ] Que roles puede tener un usuario

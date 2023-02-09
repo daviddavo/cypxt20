@@ -12,6 +12,7 @@
         "easycorp/easyadmin-bundle": "^4.0",
         "endroid/qr-code-bundle": "^4.0",
         "sensio/framework-extra-bundle": "^6.2",
+        "sherlockode/configuration-bundle": "*",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
