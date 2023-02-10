@@ -22,6 +22,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use Symfony\Component\HttpKernel\HttpCache\StoreInterface;
 
+use App\Util\CardPDF;
+
 class OnlineCallCrudController extends AbstractCrudController
 {
     public function __construct(private KernelInterface $appKernel, protected ManagerRegistry $managerRegistry, protected HttpClientInterface $client) {}
@@ -79,10 +81,17 @@ class OnlineCallCrudController extends AbstractCrudController
         return new Response($body, $statusCode, $headers);
     }
 
+    private function genCardResponse($cards): Response
+    {
+        $pdf = new CardPDF($cards, "Tarjetas");
+        $pdf->drawAll();
+        return new Response($pdf->Output(), 200, ['Content-Type' => 'application/pdf']);
+    }
+
     public function generateCard(AdminContext $context): Response
     {
         $instance = $context->getEntity()->getInstance();
-        return $this->genCardProxyResponse(['table'=>[$this->oc2json($instance)]]);
+        return $this->genCardResponse([$this->oc2json($instance)]);
     }
 
     public function generateCards(BatchActionDto $batchActionDto): Response
