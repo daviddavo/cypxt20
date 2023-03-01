@@ -43,6 +43,11 @@ Y luego crear las distintas tablas dentro de la base de datos con
 bin/console doctrine:migrations:migrate
 ```
 
+Finalmente, podemos poner unos cuantos datos de ejemplo con:
+```
+bin/console doctrine:fixtures:load
+```
+
 Ya sólo te queda meter las líneas a las tablas. De momento esto sólo es posible
 conectándose a la BBDD y ejecutando los SQL (o usando algún tipo de IDE).
 

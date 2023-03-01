@@ -3,6 +3,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
+    "@popperjs/core": "^2.11.6",
     "@symfony/webpack-encore": "^4.2.0",
     "file-loader": "^6.0.0",
     "node-sass": "^8.0.0",
@@ -13,7 +14,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
-    "bootstrap": "^4.6.2",
+    "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.4.0",
     "core-js": "^3.6.4",
     "jquery": "^3.4.1",

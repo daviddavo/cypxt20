@@ -21,6 +21,10 @@ $primary: darken(#428bca, 20%);
 
 .jumbotron {
   background-color: lightblue;
+
+  & a {
+    text-decoration: none;
+  }
 }
 
 .form-step {
