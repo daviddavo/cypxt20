@@ -26,6 +26,7 @@ Encore
     .addEntry('global', './assets/js/global.js')
     .addEntry('stats', './assets/js/stats.js')
     .addEntry('lineas', './assets/js/lineas.js')
+    .addStyleEntry('admin', './assets/css/admin.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

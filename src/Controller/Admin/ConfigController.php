@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use Sherlockode\ConfigurationBundle\Form\Type\ParametersType;
 use Sherlockode\ConfigurationBundle\Manager\ParameterManagerInterface;
@@ -24,7 +25,9 @@ class ConfigController extends AbstractController
     {
         $data = $this->parameterManager->getAll();
 
-        $form = $this->createForm(ParametersType::class, $data);
+        $form = $this->createForm(ParametersType::class, $data)
+            ->add('Guardar', SubmitType::class);
+
         // handle form submission
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

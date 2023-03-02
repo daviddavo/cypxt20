@@ -5,19 +5,46 @@ sherlockode_configuration:
       force_close:
         label: Forzar cierre del formulario
         type: checkbox
+        options:
+          help: Hace que el formulario esté cerrado aunque aún haya hueco
+          default: False
       max_applications:
         label: Máximo inscripciones
         type: simple
+        default_value: 70
         options:
           subtype: Symfony\Component\Form\Extension\Core\Type\IntegerType
+          help: Número total de tarjetas que se crearán
       max_per_user:
         label: Máximo de peticiones por usuario
         type: simple
+        default_value: 3
         options:
           subtype: Symfony\Component\Form\Extension\Core\Type\IntegerType
-      cxt_date:
+          help: Peticiones que pueden hacerse desde cada IP
+      cxt_date_long:
         label: Fecha Cuentos por Teléfono
-        type: datetime
-      pxt_date:
+        type: simple
+        default_value: 21 de marzo de 2022
+        options:
+          help: La fecha que aparece en la web
+      cxt_date_calls:
+        label: Fecha de las llamadas de Cuentos por Teléfono
+        type: simple
+        default_value: 21 de marzo de 2022 de 6 a 9
+        options:
+          help: La fecha y hora de las llamadas
+      cxt_cartel:
+        label: Cartel de Cuentos por Teléfono
+        type: image
+      pxt_date_long:
         label: Fecha Poemas por Teléfono
-        type: datetime
+        type: simple
+        default_value: 23 de abril de 2022
+      pxt_date_calls:
+        label: Fecha de las llamadas de Poemas por Teléfono
+        type: simple
+        default_value: 23 de abril de 2022 de 6 a 9
+      pxt_cartel:
+        label: Cartel de Poemas por Teléfono
+        type: image

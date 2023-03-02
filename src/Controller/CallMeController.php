@@ -20,7 +20,12 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class CallMeController extends AbstractController
 {
-    public function __construct(private ManagerRegistry $doctrine, private ParamsGenerator $params, private RequestStack $requestStack, private Security $security) {}
+    public function __construct(
+        private ManagerRegistry $doctrine, 
+        private ParamsGenerator $params, 
+        private RequestStack $requestStack, 
+        private Security $security,
+    ) {}
 
     private function isOpen() : bool {
         $query = $this->requestStack->getCurrentRequest()->query;
