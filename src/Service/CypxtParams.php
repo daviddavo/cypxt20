@@ -4,7 +4,7 @@ namespace App\Service;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class ParamsGenerator
+class CypxtParams
 {
     public function __construct(protected RequestStack $requestStack, protected ContainerInterface $container) {}
 

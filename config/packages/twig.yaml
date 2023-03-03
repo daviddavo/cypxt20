@@ -1,5 +1,6 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
-    form_themes: ['bootstrap_4_layout.html.twig']
+    form_themes: ['bootstrap_5_horizontal_layout.html.twig']
     globals:
-        cypxt: '@App\Service\ParamsGenerator'
+        cypxtpar: '@App\Service\CypxtParams'
+        cypxtconf: '@App\Service\CypxtConfig'

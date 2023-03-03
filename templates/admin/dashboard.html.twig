@@ -5,5 +5,8 @@
         <div id="cntplot" class="col-lg-6"></div>
         <div id="ageplot" class="col-lg-6"></div>
     </div>
+    <div class="row alert alert-primary">
+        <span>Recuerda que las estadísticas también están disponibles de manera pública en <a href={{ url('stats') }} rel="_blank">{{ url('stats') }}</a></span>
+    </div>
     {{ encore_entry_script_tags('stats') }}
 {% endblock %}

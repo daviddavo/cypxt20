@@ -1,16 +1,16 @@
 {# templates/pxt/welcome.html.twig #}
 {% extends 'base.html.twig' %}
 {% block title %}
-    {{ cypxt.title }}
+    {{ cypxtpar.title }}
 {% endblock %}
 {% block header %}
     {{ component('jumbotron') }}
 {% endblock %}
 {% block body %}
     <div class="container mb-3 lead">
-        <h2>¡Dedica un {{ cypxt.cop_sing }}!</h2>
+        <h2>¡Dedica un {{ cypxtpar.cop_sing }}!</h2>
         <p>
-            Este es un formulario para pedir que le {{ cypxt.cop_read }} a una persona especial para ti. Es muy importante que nos
+            Este es un formulario para pedir que le {{ cypxtpar.cop_read }} a una persona especial para ti. Es muy importante que nos
             digas <b>a quien</b> va dedicado y <b>quien eres</b> tú para que podamos decirle de qué va la cosa y no le pille por sorpresa.
         </p>
         <p class="font-weight-bold">
@@ -20,7 +20,7 @@
             Tan sólo puedes realizar {{ maxapp }} peticiones, así que, por favor, piénsate bien a quién antes de enviar el formulario, una vez enviado... ¡no se puede cambiar!
         </p>
         <p>
-            Llamaremos el <b>{{ cypxt.date_calls }}</b> de la tarde. Si podemos intentaremos llamar de nuevo si no lo han cogido.
+            Llamaremos el <b>{{ cypxtconf.date_calls }}</b> de la tarde. Si podemos intentaremos llamar de nuevo si no lo han cogido.
             </b>
         <p>
             Además, llamamos desde España, por lo que <b>no podemos hacer llamadas internacionales</b> *<i>snif</i>* :(
@@ -30,9 +30,9 @@
         </p>
         <a href="{{ url('form') }}" class="btn btn-primary" role="button">Continuar</a>
     </div>
-    {% if cypxt.poster %}
+    {% if cypxtconf.cartel %}
         <div class="container">
-            <img class="img-fluid max-vh-90 mt-3" src="{{ asset(cypxt.poster) }}" alt="Cartel oficial">
+            <img class="img-fluid max-vh-90 mt-3" src="{{ asset(cypxtconf.cartel) }}" alt="Cartel oficial">
         </div>
     {% endif %}
     <div class="container mb-3">

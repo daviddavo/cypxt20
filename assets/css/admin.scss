@@ -1,0 +1,17 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+body[data-ea-dark-scheme-is-enabled='true'] {
+    .form-control, .form-select {
+        background-color: var(--form-control-bg);
+
+        &:active, &:focus {
+            background-color: var(--form-control-bg);
+        }
+
+        & option {
+            background-color: var(--form-control-bg)!important;
+        }
+    }
+}

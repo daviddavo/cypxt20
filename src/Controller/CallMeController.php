@@ -4,7 +4,7 @@
 namespace App\Controller;
 use App\Entity\Line;
 use App\Entity\OnlineCall;
-use App\Service\ParamsGenerator;
+use App\Service\CypxtParams;
 use App\Form\OnlineCallType;
 
 use DateTime;
@@ -16,11 +16,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Sherlockode\ConfigurationBundle\Manager\ParameterManagerInterface;
+
 use Doctrine\Persistence\ManagerRegistry;
 
 class CallMeController extends AbstractController
 {
-    public function __construct(private ManagerRegistry $doctrine, private ParamsGenerator $params, private RequestStack $requestStack, private Security $security) {}
+    public function __construct(
+        private ManagerRegistry $doctrine, 
+        private CypxtParams $params, 
+        private RequestStack $requestStack, 
+        private Security $security,
+        private ParameterManagerInterface $pmi,
+    ) {}
 
     private function isOpen() : bool {
         $query = $this->requestStack->getCurrentRequest()->query;
@@ -35,7 +43,7 @@ class CallMeController extends AbstractController
         $repo = $this->doctrine->getRepository(OnlineCall::class);
         $cnt = $repo->getTotalCnt();
 
-        return $cnt < $this->getParameter('app.maxapplications');
+        return $cnt < $this->pmi->get('max_applications');
     }
 
     public function closed($remaining=true) {
@@ -59,7 +67,7 @@ class CallMeController extends AbstractController
         }
 
         return $this->render('pxt/welcome.html.twig', [
-            'maxapp' => $this->getParameter('app.maxapplications_perperson'),
+            'maxapp' => $this->pmi->get('max_applications_perperson')
         ]);
     }
 
@@ -104,7 +112,7 @@ class CallMeController extends AbstractController
 
         // Getting total cnt and number of submissions
         $repo = $this->doctrine->getRepository(OnlineCall::class);
-        $maxapplications = $this->getParameter('app.maxapplications_perperson');
+        $maxapplications = $this->pmi->get('max_applications');
         $remaining = $maxapplications - $repo->countByIp($request->getClientIp());
 
         if ($remaining == 1) {

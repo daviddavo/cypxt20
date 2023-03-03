@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-    {{ cypxt.title }}
+    {{ cypxtpar.title }}
 {% endblock %}
 {% block header %}
     {{ component('jumbotron') }}
@@ -15,7 +15,7 @@
             <h1>Máximo de solicitudes alcanzado</h1>
             <p>Lo sentimos, has alcanzado el máximo de solicitudes permitido :(</p>
         {% endif %}
-        <p>Aun así, puedes llamarnos el {{ cypxt.date_long }} a los siguientes teléfonos:</p>
+        <p>Aun así, puedes llamarnos el {{ cypxtconf.date_long }} a los siguientes teléfonos:</p>
         <ul class="fa-ul">
             {% for phonenumber in phonenumbers %}
                 <li><span class="fa-li"><i class="fas fa-phone"></i></span><a href="tel:{{ phonenumber }}">{{ phonenumber }}</a></li>
@@ -24,8 +24,8 @@
         <p>También puedes seguirnos en <a href="https://twitter.com/montandoellocal" rel="nofollow">Twitter</a> o <a href="https://www.instagram.com/montando_el_local" rel="nofollow">Instagram</a> y decirnos qué tal lo hemos hecho</p>
         <p>¡Muchas gracias a todas y todos!</p>
         <p>Esperamos que nos llames el año que viene en Poemas o Cuentos por Teléfono. ¡Nos vemos!</p>
-        {% if cypxt.poster %}
-            <img class="img-fluid max-vh-90" src="{{ asset(cypxt.poster) }}" alt="Cartel oficial">
+        {% if cypxtconf.cartel %}
+            <img class="img-fluid max-vh-90" src="{{ asset(cypxtconf.cartel) }}" alt="Cartel oficial">
         {% endif %}
     </div>
 {% endblock %}

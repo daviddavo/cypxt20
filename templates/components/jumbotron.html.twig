@@ -1,8 +1,8 @@
-<div class="jumbotron jumbotron-fluid {{ this.classes }}">
+<div class="container-fluid jumbotron py-5 mb-3 {{ this.classes }}">
     <div class="container">
-        <h1 class="display-4 d-md-none"><b>{{ this.title | default(cypxt.title) }}</b></h1>
-        <h1 class="display-3 d-none d-md-block"><b>{{ this.title | default(cypxt.title) }}</b></h1>
-        <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ cypxt.hashtag }}" target="_blank">#{{ cypxt.hashtag }}</a></h1>
-        <h5>{{ cypxt.date_long }}</h5>
+        <h1 class="display-4 d-md-none"><b>{{ this.title | default(cypxtpar.title) }}</b></h1>
+        <h1 class="display-3 d-none d-md-block"><b>{{ this.title | default(cypxtpar.title) }}</b></h1>
+        <h1 class="d-none d-md-block"><a href="https://twitter.com/hashtag/{{ cypxtpar.hashtag }}" target="_blank">#{{ cypxtpar.hashtag }}</a></h1>
+        <h5>{{ cypxtconf.date_long }}</h5>
     </div>
 </div>
