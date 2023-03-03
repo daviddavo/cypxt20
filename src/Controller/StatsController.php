@@ -10,9 +10,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Doctrine\Persistence\ManagerRegistry;
 
+use Sherlockode\ConfigurationBundle\Manager\ParameterManagerInterface;
+
 class StatsController extends AbstractController
 {
-    public function __construct(private ManagerRegistry $doctrine) {}
+    public function __construct(
+        private ManagerRegistry $doctrine,
+        private ParameterManagerInterface $pmi,
+    ) {}
 
     /**
      * @Route("/stats", name="stats")
@@ -34,7 +39,7 @@ class StatsController extends AbstractController
         $repo = $this->doctrine->getRepository(OnlineCall::class);
         return new JSONResponse([
             "ages" => $repo->getAgeCounts(),
-            "expected" => $this->getParameter('app.maxapplications')
+            "expected" => $this->pmi->get('max_applications')
         ]);
     }
 }

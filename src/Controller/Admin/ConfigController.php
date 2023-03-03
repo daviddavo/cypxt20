@@ -33,9 +33,9 @@ class ConfigController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $params = $form->getData();
             foreach ($params as $path => $value) {
-                $parameterManager->set($path, $value);
+                $this->parameterManager->set($path, $value);
             }
-            $parameterManager->save();
+            $this->parameterManager->save();
         }
 
         return $this->render('admin/config.html.twig', [

@@ -1,6 +1,7 @@
 ### IDES
 .idea
 .vscode
+/public/var/cfguploads
 
 ###> symfony/framework-bundle ###
 /.env.local
