@@ -1,0 +1,56 @@
+name: cypxt22
+on:
+  push:
+  workflow_dispatch:
+concurrency:
+  group: "ci-${{ github.ref }}"
+  cancel-in-progress: true
+env:
+  APP_ENV: prod
+  APP_DEBUG: '0'
+  COMPOSER_MEMORY_LIMIT: "-1"
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3.3.0
+      with:
+        fetch-depth: 50
+        lfs: true
+    - name: Setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'yarn'
+    - run: yarn install --no-dev
+    - run: yarn encore prod    
+    - name: tar node_modules
+      run: tar cf node_modules.tar node_modules
+    - uses: actions/upload-artifact@v3.1.1
+      if: success()
+      with:
+        name: yarn-build
+        path: |-
+          public/build/
+  deploy:
+    needs: build
+    runs-on: ubuntu-22.04
+    environment: cypxt
+    env:
+      WEB_DIR: ${{ vars.WEB_DIR }}
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - uses: actions/download-artifact@v3.0.1
+        id: download
+        with:
+          name: 'yarn-build'
+          path: public/build/
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      - name: Upload to server
+        run: ./upload.sh
+      - name: Run post deploy hooks
+        run: ssh cypxt@cypxt.montandoellocal.com "cd $WEB_DIR && ./postdeploy.sh"

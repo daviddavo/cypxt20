@@ -2,11 +2,11 @@
 
 set -eux
 
-yarn install --no-dev
-composer install --no-dev --optimize-autoloader --no-interaction --no-plugins --no-scripts --no-suggest
+# Not really needed
+# yarn install --no-dev
+composer install --no-dev --optimize-autoloader --no-interaction
 
-bin/console cache:clear
+bin/console doctrine:migrations:status
 bin/console doctrine:migrations:diff --allow-empty-diff
 bin/console doctrine:migrations:migrate -n --allow-no-migration
-bin/console cache:clear
 bin/console cache:warmup
