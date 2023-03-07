@@ -39,7 +39,7 @@ class ConfigController extends AbstractController
         }
 
         return $this->render('admin/config.html.twig', [
-            'form' => $form->createView(),
+            'appConfigForm' => $form->createView(),
         ]);
     }
 }

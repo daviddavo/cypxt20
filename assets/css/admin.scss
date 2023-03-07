@@ -14,4 +14,10 @@ body[data-ea-dark-scheme-is-enabled='true'] {
             background-color: var(--form-control-bg)!important;
         }
     }
+
+    .nav {
+        --bs-nav-link-color: #adb5bd;
+        --bs-nav-tabs-link-active-color: white;
+        --bs-nav-link-hover-color: white;
+    }
 }
