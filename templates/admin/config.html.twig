@@ -1,5 +1,19 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 {% block main %}
-    <h2>Configuración de la aplicación (por hacer)</h2>
-    {{ form(form) }}
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="appConfig-tab" data-bs-toggle="tab" data-bs-target="#appConfig" type="button" role="tab" aria-controls="appConfig" aria-selected="true">Configuración de la aplicación</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="cardsConfig-tab" data-bs-toggle="tab" data-bs-target="#cardsConfig" type="button" role="tab" aria-controls="cardsConfig" aria-selected="false">Configuración de las tarjetas</button>
+        </li>
+    </ul>
+    <div class="tab-content p-4">
+        <div class="tab-pane fade show active" id="appConfig" role="tabpanel" aria-labelledby="appConfig-tab">
+            {{ form(appConfigForm) }}
+        </div>
+        <div class="tab-pane fade" id="cardsConfig" role="tabpanel" aria-labelledby="cardsConfig-tab">
+            <h2>Por hacer</h2>
+        </div>
+    </div>
 {% endblock %}
