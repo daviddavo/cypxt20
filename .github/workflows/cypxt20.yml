@@ -1,0 +1,72 @@
+name: ddavo/cypxt20
+on:
+  push:
+  workflow_dispatch:
+concurrency:
+  group: "${{ github.ref }}"
+  cancel-in-progress: true
+env:
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  WEB_DIR: ${{ vars.WEB_DIR }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: php:8.1
+    timeout-minutes: 60
+    env:
+      APP_ENV: prod
+      APP_DEBUG: '0'
+      COMPOSER_MEMORY_LIMIT: "-1"
+    steps:
+    - uses: actions/checkout@v3.3.0
+      with:
+        fetch-depth: 50
+        lfs: true
+    - uses: actions/cache@v3.2.2
+      with:
+        path: |-
+          vendor/
+          var/cache
+        key: default
+    - run: apk add yarn
+    - run: yarn install --no-dev
+    - run: yarn encore prod
+    - uses: actions/upload-artifact@v3.1.1
+      if: success()
+      with:
+        name: "${{ github.job }}"
+        path: |-
+          node_modules/
+          public/build/
+  upload:
+    needs: build
+    runs-on: ubuntu-latest
+    container:
+      image: php:8.1
+    timeout-minutes: 60
+    env:
+      APP_ENV: prod
+      APP_DEBUG: '0'
+      COMPOSER_MEMORY_LIMIT: "-1"
+    steps:
+    - uses: actions/checkout@v3.3.0
+      with:
+        fetch-depth: 50
+        lfs: true
+    - uses: actions/cache@v3.2.2
+      with:
+        path: |-
+          vendor/
+          var/cache
+        key: default
+    - uses: actions/download-artifact@v3.0.1
+    - run: apk add openssh-client rsync
+    - run: eval $(ssh-agent -s)
+    - run: echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - run: mkdir -p ~/.ssh
+    - run: chmod 700 ~/.ssh
+    - run: ssh-keyscan cypxt.montandoellocal.com >> ~/.ssh/known_hosts
+    - run: chmod 644 ~/.ssh/known_hosts
+    - run: "./upload.sh"
+    - run: ssh cypxt@cypxt.montandoellocal.com "cd $WEB_DIR && ./postdeploy.sh"
