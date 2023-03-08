@@ -35,7 +35,6 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-22.04
-    if: github.ref == 'refs/head/master'
     environment: cypxt
     env:
       WEB_DIR: ${{ vars.WEB_DIR }}
