@@ -1,6 +1,9 @@
 import './global.js';
 import '../css/lineas.scss';
 
+import $ from 'jquery';
+import { Tooltip } from 'bootstrap';
+
 const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
 
 function updateTime(callback) {
@@ -91,17 +94,18 @@ $('tr.linea').click(function() {
    window.location = `/lineas/${$(this).data('id')}`;
 });
 
-$('#qr-copy-button').tooltip({trigger: 'manual', title: 'Enlace copiado', placement: 'right'});
+const qr_copy_button = document.getElementById("qr-copy-button");
+const qr_tooltip = qr_copy_button?new Tooltip(qr_copy_button, {trigger: 'manual', title: 'Enlace copiado', placement: 'right'}):null;
 $('#qr-copy-button').on('click', function(e) {
     navigator.clipboard.writeText($(e.target).data('link'));
 
-    $(e.target).tooltip('show');
+    qr_tooltip.show();
 
     setTimeout(function() { console.log("Hiding tooltip"); $(e.target).tooltip('hide'); }, 2000);
 });
 
-
-$().ready(function () {
+// Equivalent to $().ready, which is deprecated
+$(function () {
     const params = new URLSearchParams(window.location.search);
     console.log(params);
     if (params.has('hideUsage')) {
