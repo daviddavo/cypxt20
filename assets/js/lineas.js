@@ -69,14 +69,21 @@ function updateDataInterval() {
 }
 
 function hideUsage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (!urlParams.has('hideUsage')) {
+        urlParams.set('hideUsage', '1');
+        window.location.search = urlParams;
+    }
+
     $('#usageInfo').hide();
     $('#changeLineButtons a').each(function() {
-        let href = $(this).prop('href') + '?hideUsage';
+        let href = new URL($(this).prop('href'));
+        href.searchParams.set('hideUsage', 1);
         $(this).prop('href', href);
     });
 }
 
-$('#usageInfo button.close').click(hideUsage);
+$('#usageInfo button.close').on('click', hideUsage);
 
 function clickToggleLinea() {
     console.log("Clicked toggleLinea");
@@ -89,8 +96,8 @@ function clickToggleLinea() {
     });
 }
 
-$('button#wrapper-lineas').click(clickToggleLinea);
-$('tr.linea').click(function() {
+$('button#wrapper-lineas').on('click', clickToggleLinea);
+$('tr.linea').on('click', function() {
    window.location = `/lineas/${$(this).data('id')}`;
 });
 
