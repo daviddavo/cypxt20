@@ -112,7 +112,7 @@ class CallMeController extends AbstractController
 
         // Getting total cnt and number of submissions
         $repo = $this->doctrine->getRepository(OnlineCall::class);
-        $maxapplications = $this->pmi->get('max_applications');
+        $maxapplications = $this->pmi->get('max_applications_perperson');
         $remaining = $maxapplications - $repo->countByIp($request->getClientIp());
 
         if ($remaining == 1) {
