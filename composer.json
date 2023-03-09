@@ -11,7 +11,6 @@
         "doctrine/orm": "^2",
         "easycorp/easyadmin-bundle": "^4.0",
         "endroid/qr-code-bundle": "^4.0",
-        "fpdf/fpdf": "^1.85",
         "sensio/framework-extra-bundle": "^6.2",
         "sherlockode/configuration-bundle": "dev-default_values",
         "symfony/apache-pack": "^1.0",
@@ -37,6 +36,7 @@
         "symfony/web-link": "5.4.*",
         "symfony/webpack-encore-bundle": "^1.16",
         "symfony/yaml": "5.4.*",
+        "tecnickcom/tcpdf": "^6.6",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/intl-extra": "^3.0",
         "twig/twig": "^2.12|^3.0"

@@ -11,14 +11,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
-    name: 'app:delete-user',
+    name: 'cypxt:delete-user',
     description: 'Deletes an existing user.',
     hidden: false,
-    aliases: ['app:rm-user']
+    aliases: ['cypxt:rm-user']
 )]
 class DeleteUserCommand extends Command
 {
-    protected static $defaultName = 'app:delete-user';
+    protected static $defaultName = 'cypxt:delete-user';
 
     private UserRepository $userManager;
     private UserPasswordHasherInterface $hasher;

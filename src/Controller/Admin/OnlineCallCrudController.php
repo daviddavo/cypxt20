@@ -26,7 +26,11 @@ use App\Util\CardPDF;
 
 class OnlineCallCrudController extends AbstractCrudController
 {
-    public function __construct(private KernelInterface $appKernel, protected ManagerRegistry $managerRegistry, protected HttpClientInterface $client) {}
+    public function __construct(
+        private KernelInterface $appKernel, 
+        protected ManagerRegistry $managerRegistry, 
+        protected HttpClientInterface $client,
+    ) {}
 
     public static function getEntityFqcn(): string
     {
@@ -99,7 +103,7 @@ class OnlineCallCrudController extends AbstractCrudController
         $repo = $this->managerRegistry->getRepository($batchActionDto->getEntityFqcn());
         $jsonTable = array_map(fn($id) => $this->oc2json($repo->find($id)), $batchActionDto->getEntityIds());
 
-        return $this->genCardProxyResponse(['table'=>$jsonTable]);
+        return $this->genCardResponse($jsonTable);
     }
 
     public function generateAllCards(): Response
@@ -107,7 +111,7 @@ class OnlineCallCrudController extends AbstractCrudController
         $repo = $this->managerRegistry->getRepository($this->getEntityFqcn());
         $jsonTable = array_map(fn($u) => $this->oc2json($u), $repo->findAll());
     
-        return $this->genCardProxyResponse(['table'=>$jsonTable]);
+        return $this->genCardResponse($repo->findAll());
     }
 
     public function configureActions(Actions $actions): Actions

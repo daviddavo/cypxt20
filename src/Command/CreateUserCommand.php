@@ -11,14 +11,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
-    name: 'app:create-user',
+    name: 'cypxt:create-user',
     description: 'Creates a new user.',
     hidden: false,
-    aliases: ['app:add-user']
+    aliases: ['cypxt:add-user']
 )]
 class CreateUserCommand extends Command
 {
-    protected static $defaultName = 'app:create-user';
+    protected static $defaultName = 'cypxt:create-user';
 
     private UserRepository $userManager;
     private UserPasswordHasherInterface $hasher;

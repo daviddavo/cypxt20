@@ -13,14 +13,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
-    name: 'app:set-user-password',
+    name: 'cypxt:set-user-password',
     description: 'Sets an user password.',
     hidden: false,
-    aliases: ['app:set-password']
+    aliases: ['cypxt:set-password']
 )]
 class SetUserPasswordCommand extends Command
 {
-    protected static $defaultName = 'app:set-user-password';
+    protected static $defaultName = 'cypxt:set-user-password';
 
     private UserRepository $userManager;
     private UserPasswordHasherInterface $hasher;
