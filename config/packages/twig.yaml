@@ -4,3 +4,7 @@ twig:
     globals:
         cypxtpar: '@App\Service\CypxtParams'
         cypxtconf: '@App\Service\CypxtConfig'
+        mel:
+            instagram: montando_el_local
+            twitter: montandoellocal
+            tiktok: montando_el_local

@@ -12,7 +12,7 @@ button#wrapper-lineas {
 
   &:disabled {
     & .linea {
-      background-color: theme-color('secondary') !important;
+      background-color: $secondary !important;
 
       & *:not(.loading-text) {
         display: none;
@@ -36,11 +36,11 @@ button#wrapper-lineas {
 }
 
 #changeLineButtons {
-  background-color: theme-color('secondary');
-  color: theme-color('light')!important;
+  background-color: $secondary;
+  color: $light!important;
 
   & a {
-    color: theme-color('light');
+    color: $light;
     text-decoration: none;
   }
 
@@ -48,7 +48,7 @@ button#wrapper-lineas {
     font-size: 3em;
   }
    & .col + .col {
-     border-left: 1px solid theme-color('light');
+     border-left: 1px solid $light;
    }
 }
 
@@ -57,10 +57,11 @@ tr.linea {
 }
 
 .linea {
-  background-color: theme-color('alert');
+  --bs-table-bg: transparent;
+  background-color: $warning;
 
   &[data-status='idle'] {
-    background-color: theme-color('success');
+    background-color: $success;
 
     & .linea-busy {
       display: none;
@@ -68,7 +69,7 @@ tr.linea {
   }
 
   &[data-status='busy'] {
-    background-color: theme-color('danger');
+    background-color: $danger;
 
     & .linea-idle {
       display: none;
