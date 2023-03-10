@@ -89,21 +89,24 @@ class OnlineCallCrudController extends AbstractCrudController
     {
         $pdf = new CardPDF($cards, "Tarjetas");
         $pdf->drawAll();
-        return new Response($pdf->Output(), 200, ['Content-Type' => 'application/pdf']);
+        return new Response($pdf->Output('', 'S'), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'filename="tarjetas.pdf"',
+        ]);
     }
 
     public function generateCard(AdminContext $context): Response
     {
         $instance = $context->getEntity()->getInstance();
-        return $this->genCardResponse([$this->oc2json($instance)]);
+        return $this->genCardResponse([$instance]);
     }
 
     public function generateCards(BatchActionDto $batchActionDto): Response
     {
         $repo = $this->managerRegistry->getRepository($batchActionDto->getEntityFqcn());
-        $jsonTable = array_map(fn($id) => $this->oc2json($repo->find($id)), $batchActionDto->getEntityIds());
+        $cards = array_map(fn($id) => $repo->find($id), $batchActionDto->getEntityIds());
 
-        return $this->genCardResponse($jsonTable);
+        return $this->genCardResponse($cards);
     }
 
     public function generateAllCards(): Response

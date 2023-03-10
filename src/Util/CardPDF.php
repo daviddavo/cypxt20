@@ -14,19 +14,38 @@ class CardPDF extends TCPDF
     public function __construct(
         protected array $cards,
         protected $title = 'Hello World!',
-        protected $height = 100,
+        protected $height = 105,
         protected $width = 150,
         protected $drawLines = False,
         protected $drawBoxes = False, // for debugging
         protected $lineHeight = 6,
+        protected $firstLineHeight = 14,
     ) {
         // landscape and mm always
         parent::__construct('L', 'mm', [$height, $width]);
+        $this->setTopMargin($firstLineHeight);
     }
 
     private function drawLinesInPage() {
-        // TODO: Make a function that draws the lines
-        // TODO: Take into account the first line
+        $w = $this->getPageWidth();
+        $this->Line(0, $this->firstLineHeight, $w, $this->firstLineHeight, [
+            'color' => array(255, 0, 0),
+            'width' => 0.5,
+        ]);
+
+        $y = $this->firstLineHeight + $this->lineHeight;
+        while ($y + $this->lineHeight < $this->getPageHeight()) {
+            $this->Line(0, $y, $w, $y, [
+                'color' => array(0,0,0),
+                'width' => 0.25,
+            ]);
+
+            $y += $this->lineHeight;
+        }
+    }
+
+    private function getLineY($line) {
+        return $this->firstLineHeight + $this->lineHeight * $line;
     }
 
     private function setLabelFont() {
@@ -50,54 +69,70 @@ class CardPDF extends TCPDF
         $comments = str_replace(' ,', ',', $comments);
         return $comments;
     }
+    
+    public function Label(string $text, $w=0, $ln=1, $stretch=0) {
+        $this->setLabelFont();
+        $this->Cell($w, $this->lineHeight, $text, border: $this->drawBoxes, ln: $ln, stretch: $stretch);
+    }
+
+    public function Datum(string $text, $w=0, $ln=1, $align='L', $stretch=0) {
+        $this->setBigFont();
+        $this->Cell($w, 2*$this->lineHeight, $text, $this->drawBoxes, $ln, $align);
+    }
+
+    public function PossiblyLongDatum(string $text, $w=0, $ln=1) {
+        $this->setBigFont();
+        if ($w == 0) {
+            $w = $this->x - $this->pageWidth - $this->marginRight;
+        }
+
+        if ($this->GetStringWidth($text) < $w) {
+            $this->Cell($w, 2*$this->lineHeight, $text, $this->drawBoxes, ln: $ln);
+        } else {
+            $this->setFontSize(12);
+            $this->MultiCell($w, 2*$this->lineHeight, $text, $this->drawBoxes, ln: $ln, maxh: 2*$this->lineHeight, align: 'L', stretch: 1);
+            $this->setFontSize(24);
+        }
+    }
 
     private function drawTextInPage(OnlineCall $card) {
-        // TODO: Check with drawLines that everything fits
         // TODO: Use condensed, bold fonts like in the tex template (Roboto Condensed)
 
-        // Para: pequeña etiqueta en la primera línea
-        $this->setLabelFont();
-        $this->Cell(0,$this->lineHeight,'Para:', $this->drawBoxes, 1);
+        $this->y = $this->getLineY(0);
+        $this->Label("Para:");
 
         // El nombre y la edad. Siguiente línea, dos líneas de alto
         $this->setBigFont();
-        $this->Cell(0,2*$this->lineHeight,sprintf('%s, %d', mb_strtoupper($card->getName()), $card->getAge()), $this->drawBoxes, 1);
-        $this->y += $this->lineHeight;
+        $this->y = $this->getLineY(1);
+        $this->Datum(sprintf('%s, %d', mb_strtoupper($card->getName()), $card->getAge()));
 
+        $this->y = $this->getLineY(4);
         $lw = $this->getPageWidth() - $this->lMargin - $this->rMargin;
         $width_left = $lw * 0.60;
         $width_right = $lw - $width_left;
 
         // The two labels
-        $this->setLabelFont();
-        $this->Cell($width_left, $this->lineHeight,'De:', $this->drawBoxes, 0);
-        $this->Cell($width_right, $this->lineHeight,'Tlf:', $this->drawBoxes, 1, stretch: 1);
+        $this->Label('De:', $width_left, 0);
+        $this->Label('Tlf:', $width_right, 1, stretch: 1);
 
         // The two fields
-        $h2 = 2*$this->lineHeight;
-        $this->setBigFont();
+        $this->y = $this->getLineY(5);
 
         // Try to fit into one line, or do two if impossible
         $fromName = mb_strtoupper($card->getFromName());
-        if ($this->GetStringWidth($fromName) < $width_left) {
-            $this->Cell($width_left, $h2, $fromName, $this->drawBoxes, ln: 0);
-        } else {
-            $this->setFontSize(12);
-            $this->MultiCell($width_left, $h2, $fromName, $this->drawBoxes, ln: 0, maxh: $h2, align: 'L', stretch: 1);
-            $this->setFontSize(24);
-        }
-        $this->Cell($width_right, $h2, $this->prettyNumber($card->getNumber()), $this->drawBoxes, 1, align: 'R', stretch: 1);
-        $this->y += $this->lineHeight;
+        $this->PossiblyLongDatum($fromName, $width_left, ln: 0);
+        $this->Datum($this->prettyNumber($card->getNumber()), $width_right, align: 'R', stretch: 1);
 
         // Empty cell?
-        $this->setLabelFont();
-        $this->Cell(0, $this->lineHeight, 'Comentarios:', $this->drawBoxes, 1);
+        $this->y = $this->getLineY(8);
+        $this->Label('Comentarios:');
+
         $this->setFont('courier', '', 10);
+        $this->y = $this->getLineY(9);
         $this->MultiCell(0, 0, $this->sanitizeComments($card->getComment()), $this->drawBoxes, 1);
     }
 
     private function drawPage($card) {
-        // TODO: Make a function that draws
         $this->AddPage();
         if ($this->drawLines) {
             $this->drawLinesInPage();

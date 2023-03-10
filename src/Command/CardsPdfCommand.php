@@ -34,18 +34,21 @@ class CardsPdfCommand extends Command
         $this
             ->setHelp("This command allows you to generate the cards pdf")
             ->addOption('drawBoxes', 'b', InputOption::VALUE_NEGATABLE, "Wether to print boxes for debugging")
+            ->addOption('drawLines', 'l', InputOption::VALUE_NEGATABLE, "Wether to print lines for debugging")
             ->addArgument('output', InputArgument::REQUIRED, "Output file name");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $fname = $input->getArgument('output');
-        $drawBoxes = $input->getOption('drawBoxes');
 
         $output->writeln('Generating pdf');
 
         $calls = $this->callRepository->findAll();
-        $pdf = new CardPDF($calls, drawBoxes: $drawBoxes);
+        $pdf = new CardPDF($calls, 
+            drawBoxes: $input->getOption('drawBoxes'),
+            drawLines: $input->getOption('drawLines'),
+        );
 
         $pdf->drawAll();
 
