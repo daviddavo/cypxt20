@@ -26,6 +26,11 @@ class CardPDF extends TCPDF
         // landscape and mm always
         parent::__construct('L', 'mm', [$height, $width]);
         $this->setTopMargin($firstLineHeight);
+        $this->fontsPath = './assets/fonts/';
+    }
+
+    public function setFontsPath(string $fontsPath) {
+        $this->fontsPath = $fontsPath;
     }
 
     private function drawLinesInPage() {
@@ -55,7 +60,7 @@ class CardPDF extends TCPDF
     }
 
     private function setBigFont($size = 34) {
-        $fontName = TCPDF_FONTS::addTTFFont('./assets/fonts/RobotoCondensed-Bold.ttf');
+        $fontName = TCPDF_FONTS::addTTFFont($this->fontsPath . 'RobotoCondensed-Bold.ttf');
         $this->setFont($fontName, '', $size);
     }
 
@@ -105,7 +110,7 @@ class CardPDF extends TCPDF
     }
 
     public function Comments(int $line, string $text) {
-        $fontName = TCPDF_FONTS::addTTFFont('./assets/fonts/RobotoCondensed-Regular.ttf');
+        $fontName = TCPDF_FONTS::addTTFFont($this->fontsPath . 'RobotoCondensed-Regular.ttf');
         $this->setFont($fontName, '', 10);
         $this->y = $this->getLineY($line);
         $this->setCellHeightRatio($this->lineHeight / $this->getFontSize());

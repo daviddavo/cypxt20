@@ -88,6 +88,7 @@ class OnlineCallCrudController extends AbstractCrudController
     private function genCardResponse($cards): Response
     {
         $pdf = new CardPDF($cards, "Tarjetas");
+        $pdf->setFontsPath($this->appKernel->getProjectDir() . '/assets/fonts/');
         $pdf->drawAll();
         return new Response($pdf->Output('', 'S'), 200, [
             'Content-Type' => 'application/pdf',
