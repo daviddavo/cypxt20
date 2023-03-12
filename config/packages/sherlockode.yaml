@@ -51,3 +51,37 @@ sherlockode_configuration:
     pxt__cartel:
       label: Cartel de Poemas por Teléfono
       type: image
+    cards__width:
+      label: Ancho de las tarjetas
+      type: simple
+      default_value: 150
+      options:
+        help: Longitud en milímetros
+        subtype: Symfony\Component\Form\Extension\Core\Type\IntegerType
+    cards__height:
+      label: Alto de las tarjetas
+      type: simple
+      default_value: 105
+      options:
+        help: Longitud en milímetros
+        subtype: Symfony\Component\Form\Extension\Core\Type\IntegerType
+    cards__firstLineHeight:
+      label: Alto de la primera línea
+      type: simple
+      default_value: 14
+      options:
+        help: La distancia en mm entre el borde del papel y la primera línea, que suele ser más ancha y de otro color.
+        subtype: Symfony\Component\Form\Extension\Core\Type\IntegerType
+    cards__lineHeight:
+      label: Alto del resto de líneas
+      type: simple
+      default_value: 6
+      options:
+        help: Distancia en mm entre las otras líneas
+        subtype: Symfony\Component\Form\Extension\Core\Type\IntegerType
+    cards__drawLines:
+      label: Dibujar líneas
+      type: checkbox
+      options:
+        help: Mostrar las líneas de la tarjeta en el PDF (para depurar o imprimir sobre folio en blanco). Si váis a imprimir sobre tarjetas que ya tienen las líneas hay que DESACTIVAR esta opción.
+        default: False

@@ -1,5 +1,6 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 {% block main %}
+    {% include '/pxt/_messages.html.twig' %}
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="appConfig-tab" data-bs-toggle="tab" data-bs-target="#appConfig" type="button" role="tab" aria-controls="appConfig" aria-selected="true">Configuración de la aplicación</button>
@@ -8,12 +9,30 @@
             <button class="nav-link" id="cardsConfig-tab" data-bs-toggle="tab" data-bs-target="#cardsConfig" type="button" role="tab" aria-controls="cardsConfig" aria-selected="false">Configuración de las tarjetas</button>
         </li>
     </ul>
+    {{ form_start(form) }}
     <div class="tab-content p-4">
         <div class="tab-pane fade show active" id="appConfig" role="tabpanel" aria-labelledby="appConfig-tab">
-            {{ form(appConfigForm) }}
+            {# {{ form(appConfigForm) }} #}
+            {% for row in form %}
+                {% if not (row.vars.name starts with 'cards__') and not (row.vars.name starts with '_' ) %}
+                    {{ form_row(row) }}
+                {% endif %}
+            {% endfor %}
         </div>
-        <div class="tab-pane fade" id="cardsConfig" role="tabpanel" aria-labelledby="cardsConfig-tab">
-            <h2>Por hacer</h2>
+        <div class="tab-pane fade container" id="cardsConfig" role="tabpanel" aria-labelledby="cardsConfig-tab">
+            <div class="row">
+                <div class="col-xl-6 text-center">
+                    <img class="img-fluid p-3" src="{{ asset("build/images/card-diagram.drawio.png") }}" alt="Tarjeta de ejemplo">
+                </div>
+                <div class="col-xl-6 order-xl-first">
+                    {% for row in form %}
+                        {% if (row.vars.name starts with 'cards__') and not (row.vars.name starts with '_' ) %}
+                            {{ form_row(row) }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
+    {{ form_end(form)}}
 {% endblock %}

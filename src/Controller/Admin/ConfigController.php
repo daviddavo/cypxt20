@@ -26,20 +26,25 @@ class ConfigController extends AbstractController
         $data = $this->parameterManager->getAll();
 
         $form = $this->createForm(ParametersType::class, $data)
-            ->add('Guardar', SubmitType::class);
+            ->add('_save', SubmitType::class, ['label' => 'Guardar']);
 
         // handle form submission
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $params = $form->getData();
-            foreach ($params as $path => $value) {
-                $this->parameterManager->set($path, $value);
+            if ($form->isValid()) {
+                $params = $form->getData();
+                foreach ($params as $path => $value) {
+                    $this->parameterManager->set($path, $value);
+                }
+                $this->parameterManager->save();
+                $this->addFlash('success', "Se ha guardado la configuración");
+            } else {
+                $this->addFlash('error', 'Lo siento, el formulario no es válido');
             }
-            $this->parameterManager->save();
         }
 
         return $this->render('admin/config.html.twig', [
-            'appConfigForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 }

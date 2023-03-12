@@ -22,6 +22,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use Symfony\Component\HttpKernel\HttpCache\StoreInterface;
 
+use Sherlockode\ConfigurationBundle\Manager\ParameterManagerInterface;
+
 use App\Util\CardPDF;
 
 class OnlineCallCrudController extends AbstractCrudController
@@ -30,6 +32,7 @@ class OnlineCallCrudController extends AbstractCrudController
         private KernelInterface $appKernel, 
         protected ManagerRegistry $managerRegistry, 
         protected HttpClientInterface $client,
+        protected ParameterManagerInterface $pmi,
     ) {}
 
     public static function getEntityFqcn(): string
@@ -87,7 +90,13 @@ class OnlineCallCrudController extends AbstractCrudController
 
     private function genCardResponse($cards): Response
     {
-        $pdf = new CardPDF($cards, "Tarjetas " . date('Y-m-d'));
+        $pdf = new CardPDF($cards, "Tarjetas " . date('Y-m-d'),
+            height: $this->pmi->get('cards__height'),
+            width: $this->pmi->get('cards__width'),
+            drawLines: $this->pmi->get('cards__drawLines'),
+            lineHeight: $this->pmi->get('cards__lineHeight'),
+            firstLineHeight: $this->pmi->get('cards__firstLineHeight'),
+        );
         $pdf->setFontsPath($this->appKernel->getProjectDir() . '/assets/fonts/');
         $pdf->drawAll();
         return new Response($pdf->Output('', 'S'), 200, [
