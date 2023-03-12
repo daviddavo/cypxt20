@@ -9,6 +9,8 @@ use App\Entity\OnlineCall;
 // Tengo 38.5 de fiebre, no me responsabilizo de la calidad de este código
 class CardPDF extends TCPDF 
 {
+    protected string $fontsPath;
+
     /**
      * @param OnlineCall[] $cards
      */
@@ -65,7 +67,7 @@ class CardPDF extends TCPDF
     }
 
     private function setMonoFont($size = 12) {
-        $fontName = TCPDF_FONTS::addTTFFont($this->fontsPath . 'RobotoMono-Light.ttf');
+        $fontName = 'courier';
         $this->setFont($fontName, '', $size);
     }
 
@@ -77,6 +79,8 @@ class CardPDF extends TCPDF
     }
 
     public static function sanitizeComments(?string $comments): string {
+        if (is_null($comments)) return "";
+
         $comments = str_replace('\r\n', '', $comments);
         $comments = str_replace(' .', '.', $comments);
         $comments = str_replace(' ,', ',', $comments);
