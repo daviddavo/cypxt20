@@ -14,7 +14,7 @@ class CardPDF extends TCPDF
      */
     public function __construct(
         protected array $cards,
-        protected $title = 'Hello World!',
+        protected $title = 'Título',
         protected $height = 105,
         protected $width = 150,
         protected $drawLines = False,
@@ -61,6 +61,11 @@ class CardPDF extends TCPDF
 
     private function setBigFont($size = 34) {
         $fontName = TCPDF_FONTS::addTTFFont($this->fontsPath . 'RobotoCondensed-Bold.ttf');
+        $this->setFont($fontName, '', $size);
+    }
+
+    private function setMonoFont($size = 12) {
+        $fontName = TCPDF_FONTS::addTTFFont($this->fontsPath . 'RobotoMono-Light.ttf');
         $this->setFont($fontName, '', $size);
     }
 
@@ -118,12 +123,19 @@ class CardPDF extends TCPDF
     }
 
     private function drawTextInPage(OnlineCall $card) {
+        $lw = $this->getPageWidth() - $this->lMargin - $this->rMargin;
+        $width_left = $lw * 0.80;
+
+        $this->y = $this->firstLineHeight;
+        $this->setMonoFont();
+        $this->Cell($width_left, $this->lineHeight, $this->title, border: $this->drawBoxes, ln: 0, align: 'L', calign: 'B', valign: 'C');
+        $this->Cell(0, $this->lineHeight, "ID: " . $card->getId(), border: $this->drawBoxes, ln: 1, align: 'R', calign: 'B', valign: 'C');
+
         $this->Label(0, "Para:");
 
         // El nombre y la edad. Siguiente línea, dos líneas de alto
         $this->PossiblyLongDatum(1, sprintf('%s, %d', mb_strtoupper($card->getName()), $card->getAge()));
 
-        $lw = $this->getPageWidth() - $this->lMargin - $this->rMargin;
         $width_left = $lw * 0.50;
         $width_right = $lw - $width_left;
 
