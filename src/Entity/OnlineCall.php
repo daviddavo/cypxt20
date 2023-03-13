@@ -29,7 +29,7 @@ class OnlineCall
     private $age;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=31)
      */
     private $number;
 
