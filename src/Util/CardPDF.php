@@ -81,7 +81,7 @@ class CardPDF extends TCPDF
     public static function sanitizeComments(?string $comments): string {
         if (is_null($comments)) return "";
 
-        $comments = str_replace('\r\n', '', $comments);
+        $comments = preg_replace('/\s\s+/m', ' ', $comments);
         $comments = str_replace(' .', '.', $comments);
         $comments = str_replace(' ,', ',', $comments);
         return $comments;
