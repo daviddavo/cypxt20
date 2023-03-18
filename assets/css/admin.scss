@@ -2,7 +2,7 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 
-body[data-ea-dark-scheme-is-enabled='true'] {
+body.ea-dark-scheme {
     .form-control, .form-select {
         background-color: var(--form-control-bg);
 
