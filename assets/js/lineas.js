@@ -120,7 +120,7 @@ $(function () {
     }
 
     updateTime();
-    setInterval(updateTime, 1000);
+    setInterval(updateTime, 500);
 
     if (params.has('updateInterval')) {
         $("#wrapper-lineas").data("update-interval", params.get("updateInterval"));
