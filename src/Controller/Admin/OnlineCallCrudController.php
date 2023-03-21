@@ -90,19 +90,24 @@ class OnlineCallCrudController extends AbstractCrudController
 
     private function genCardResponse($cards): Response
     {
+        $h = $this->pmi->get('cards__height');
+        $w = $this->pmi->get('cards__width');
+        $c = $this->pmi->get('cards__compact');
+        $l = $this->pmi->get('cards__drawLines');
         $pdf = new CardPDF($cards, "Tarjetas " . date('Y-m-d'),
-            height: $this->pmi->get('cards__height'),
-            width: $this->pmi->get('cards__width'),
-            drawLines: $this->pmi->get('cards__drawLines'),
+            height: $h,
+            width: $w,
             lineHeight: $this->pmi->get('cards__lineHeight'),
+            drawLines: $l,
             firstLineHeight: $this->pmi->get('cards__firstLineHeight'),
-            compact: $this->pmi->get('cards__compact'),
+            compact: $c,
         );
         $pdf->setFontsPath($this->appKernel->getProjectDir() . '/assets/fonts/');
         $pdf->drawAll();
+        $filename = sprintf("tarjetas_%s_%dx%d%s%s.pdf", date('Y-m-d'), $w, $h, $c?'_compact':'', $l?'_lines':'');
         return new Response($pdf->Output('', 'S'), 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'filename="tarjetas.pdf"',
+            'Content-Disposition' => 'filename="'.$filename.'"',
         ]);
     }
 
