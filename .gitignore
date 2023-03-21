@@ -2,6 +2,7 @@
 .idea
 .vscode
 /public/var/cfguploads
+*.pdf
 
 ###> symfony/framework-bundle ###
 /.env.local

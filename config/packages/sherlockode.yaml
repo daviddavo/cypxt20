@@ -85,3 +85,9 @@ sherlockode_configuration:
       options:
         help: Mostrar las líneas de la tarjeta en el PDF (para depurar o imprimir sobre folio en blanco). Si váis a imprimir sobre tarjetas que ya tienen las líneas hay que DESACTIVAR esta opción.
         default: False
+    cards__compact:
+      label: Modo compacto
+      type: checkbox
+      options:
+        help: "Experimental: Cambia el tamaño de las letras entre otras cosas para que quepa en tarjetas pequeñas"
+        default: False

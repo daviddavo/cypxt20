@@ -96,6 +96,7 @@ class OnlineCallCrudController extends AbstractCrudController
             drawLines: $this->pmi->get('cards__drawLines'),
             lineHeight: $this->pmi->get('cards__lineHeight'),
             firstLineHeight: $this->pmi->get('cards__firstLineHeight'),
+            compact: $this->pmi->get('cards__compact'),
         );
         $pdf->setFontsPath($this->appKernel->getProjectDir() . '/assets/fonts/');
         $pdf->drawAll();
