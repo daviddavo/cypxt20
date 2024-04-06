@@ -99,11 +99,11 @@ class CallMeController extends AbstractController
                     "Oído cocina", "Recibido", "Marchando"
                 ];
                 $this->addFlash('success', "¡{$xdarr[array_rand($xdarr)]}! {$data->getFromName()}, ¿quieres que le " . $this->params->cop_phrase_question() . " a alguien más?");
+                return $this->redirect($request->getUri());
             } else {
-                $this->addFlash('error', 'Lo sentimos, ha habido un error al entregar el formulario...');
+                $this->addFlash('error', 'Lo sentimos, ha habido un error al entregar el formulario... Prueba a volver a enviarlo');
             }
 
-            return $this->redirect($request->getUri());
         }
 
         if (!$this->isOpen()) {
