@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\OnlineCall;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -37,9 +37,17 @@ class OnlineCallType extends AbstractType
                     'max' => 100
                 ]
             ])
-            ->add('number', TelType::class, [
-                'label' => 'Número fijo o móvil (preferiblemente fijo)',
-                'help' => '¿A qué número quieres que llamemos?',
+            ->add('number', RepeatedType::class, [ 
+                'type' => TelType::class,
+                'first_options' => [
+                    'label' => 'Número fijo o móvil (preferiblemente fijo)',
+                    'help' => '¿A qué número quieres que llamemos?',
+                ],
+                'second_options' => [
+                    'label' => 'Repite el número',
+                    'help' => 'Por si las moscas',
+                ],
+                'invalid_message' => 'Los números no coinciden',
                 'required' => true
             ])
             ->add('comment', TextAreaType::class, [
