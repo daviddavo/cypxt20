@@ -1,0 +1,13 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/php:0-8.2",
+	"features": {
+		"ghcr.io/shyim/devcontainers-features/symfony-cli:0": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"xdebug.php-debug"
+			]
+		}
+	}
+}
