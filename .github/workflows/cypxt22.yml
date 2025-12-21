@@ -18,11 +18,13 @@ jobs:
         fetch-depth: 50
         lfs: true
     - name: Setup node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
-        node-version: '18'
-        cache: 'yarn'
-    - run: yarn install --no-dev
+        node-version: 22
+        cache: yarn
+        always-auth: false
+        check-latest: false
+    - run: yarn install --frozen-lockfile
     - run: yarn encore prod    
     - name: tar node_modules
       run: tar cf node_modules.tar node_modules
