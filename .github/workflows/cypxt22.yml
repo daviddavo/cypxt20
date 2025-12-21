@@ -20,8 +20,10 @@ jobs:
     - name: Setup node
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
-        cache: 'yarn'
+        node-version: 18
+        cache: yarn
+        always-auth: false
+        check-latest: false
     - run: yarn install --frozen-lockfile
     - run: yarn encore prod    
     - name: tar node_modules
